@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.005"
+        android:src="@drawable/food" />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:ems="10" 
+        android:hint="Email">
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:ems="10"
+        android:inputType="textPassword" 
+        android:hint="Password"/>
+
+	 <RadioGroup
+	     android:id="@+id/userType"
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+	     android:layout_gravity="center_horizontal" 
+	     android:orientation="horizontal" >
+ 
+        <RadioButton
+            android:id="@+id/radioUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User" 
+            android:checked="true" />
+ 
+        <RadioButton
+            android:id="@+id/radioAdmin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Admin" />
+ 
+    </RadioGroup>
+    
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Login" />
+
+</LinearLayout>
