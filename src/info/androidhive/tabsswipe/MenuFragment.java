@@ -80,10 +80,10 @@ public class MenuFragment extends Fragment {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				AddToCart add = new AddToCart();
-				add.addItem(Integer.valueOf(cust_id), Integer.valueOf(id), np.getValue());
+				String rsp = add.addItem(Integer.valueOf(cust_id), Integer.valueOf(id), np.getValue());
 				String msg = String.valueOf(np.getValue());
 				msg = msg+" "+name+" added to cart!";
-				Toast.makeText(getActivity(),msg , Toast.LENGTH_LONG).show();
+				Toast.makeText(getActivity(),rsp , Toast.LENGTH_LONG).show();
 				d.dismiss();
 //				Toast.makeText(getActivity(), cust_id+", "+id+", ", Toast.LENGTH_LONG).show();
 			}

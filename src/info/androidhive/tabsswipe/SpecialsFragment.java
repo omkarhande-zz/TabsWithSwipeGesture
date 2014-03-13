@@ -93,11 +93,11 @@ public class SpecialsFragment extends Fragment {
 				// TODO Auto-generated method stub
 				AddToCart add = new AddToCart();
 				String str = id.get(pos);
-				add.addItem(cust_id, Integer.valueOf(str), np.getValue());
+				String rsp = add.addItem(cust_id, Integer.valueOf(str), np.getValue());
 				d.dismiss();
 				String msg = String.valueOf(np.getValue());
 				msg = msg+" "+name.get(pos)+" added to cart!";
-				Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
+				Toast.makeText(getActivity(), rsp, Toast.LENGTH_LONG).show();
 			}
 		});
         d.show();

@@ -1,7 +1,6 @@
 package info.androidhive.tabsswipe;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -10,20 +9,34 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 public class AddToCart {
 	int cust_id, item_id, quant;
+	String response;
+	JSONArray array;
+	JSONObject obj;
 	
-	public void addItem(int cust, int item, int q){
+	public String addItem(int cust, int item, int q){
 		cust_id = cust;
 		item_id = item;
 		quant = q;
 		Log.d("input", String.valueOf(cust_id)+" "+String.valueOf(item_id)+" "+String.valueOf(quant));
 		CheckAndAdd task = new CheckAndAdd();
-		task.execute();
+		try {
+			task.execute().get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return response;
 	}
 	private class CheckAndAdd extends AsyncTask<String, Void, Boolean>{
 
@@ -36,7 +49,33 @@ public class AddToCart {
 				HttpGet get = new HttpGet("http://192.168.144.1/order/add.php?"+"cust_id="+cust_id+"&item_id="+item_id+"&quant="+quant);
 				
 		        HttpResponse responseGet = client.execute(get);  
-		        HttpEntity resEntity = responseGet.getEntity();		   		
+		        HttpEntity resEntity = responseGet.getEntity();
+		        if (resEntity != null) 
+		        {  
+		                 	response = EntityUtils.toString(resEntity);
+		                    Log.d("response", response);
+		        }
+				array = new JSONArray(response);
+				int arrlen = array.length();
+				Log.d("Array Length", Integer.toString(arrlen));
+
+				for(int i=0;i<arrlen;i++)
+				{	
+					obj = array.getJSONObject(i);
+//					name = obj.getString("name");
+//					id = obj.getString("id");
+//					total = obj.getString("total");
+					response = obj.getString("response");
+					
+//					
+//					itemId.add(id);
+//					orderItems.add(name+" - "+total);
+//					itemTotal.add(total);
+//					
+//					Toast.makeText(LoginActivity.this, tmp_fname, Toast.LENGTH_LONG).show();
+					
+				}
+				
 			}catch(Exception e){
 				
 			}
