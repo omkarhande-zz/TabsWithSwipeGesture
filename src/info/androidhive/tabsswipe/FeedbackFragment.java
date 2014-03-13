@@ -13,7 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
-public class TopRatedFragment extends Fragment {
+public class FeedbackFragment extends Fragment {
 	ListView lv;
 
 	@Override

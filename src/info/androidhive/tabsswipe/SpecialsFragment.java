@@ -33,7 +33,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MoviesFragment extends Fragment {
+public class SpecialsFragment extends Fragment {
 	ArrayList<String> name;
 	ArrayList<String> id;
 	ArrayList<String> desc;

@@ -30,7 +30,7 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class GamesFragment extends Fragment {
+public class MenuFragment extends Fragment {
 	ExpandableListAdapter listAdapter;
 	ExpandableListView expListView;
 	List<String> listDataHeader;
