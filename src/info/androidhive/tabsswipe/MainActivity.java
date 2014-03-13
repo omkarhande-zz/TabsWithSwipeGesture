@@ -5,11 +5,14 @@ import android.app.ActionBar;
 import android.app.Dialog;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -24,6 +27,11 @@ public class MainActivity extends FragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		String name = prefs.getString("name", "");
+		String id = prefs.getString("id", "");
+		
+		Toast.makeText(MainActivity.this, "Welcome "+name+"!", Toast.LENGTH_SHORT).show();
 
 		// Initilization
 		viewPager = (ViewPager) findViewById(R.id.pager);

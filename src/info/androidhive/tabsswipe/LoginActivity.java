@@ -11,8 +11,10 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +32,8 @@ public class LoginActivity extends Activity{
 	String response;
 	JSONArray array;
 	JSONObject obj;
+	int auth;
+	Intent i;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -40,8 +44,9 @@ public class LoginActivity extends Activity{
 		rb2 = (RadioButton)findViewById(R.id.radioAdmin);
 		email = (EditText)findViewById(R.id.email);
 		pass = (EditText)findViewById(R.id.pass);
+		auth=0;
 		b.setOnClickListener(new View.OnClickListener() {
-		Intent i;	
+			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -53,21 +58,29 @@ public class LoginActivity extends Activity{
 				}
 				GetUserDetails task= new GetUserDetails();
 				task.execute();
-				Toast.makeText(LoginActivity.this, "HEy", Toast.LENGTH_SHORT).show();
-				startActivity(i);
+//				startActivity(i);
+//				Toast.makeText(LoginActivity.this, String.valueOf, Toast.LENGTH_SHORT).show();
+//				if(auth == 1){
+//					startActivity(i);
+//				}else{
+//					Toast.makeText(LoginActivity.this, "Invalid", Toast.LENGTH_SHORT).show();
+//				}
 			}
 		});
 	}
-	private class GetUserDetails extends AsyncTask<String,Void,String>{
+	private class GetUserDetails extends AsyncTask<String,Void,Boolean>{
 		
+		String tmp_fname = null;
+		String tmp_id = null;
+		String tmp_active = null;
 
 		@Override
-		protected String doInBackground(String... arg0) {
+		protected Boolean doInBackground(String... arg0) {
 			// TODO Auto-generated method stub
-			String tmp_fname = null;
+			
 			try
 			{
-				int k=10;
+				int k=25;
 				
 //				Toast.makeText(LoginActivity.this, "Hello", Toast.LENGTH_SHORT).show();
 				HttpClient client = new DefaultHttpClient();  
@@ -76,10 +89,7 @@ public class LoginActivity extends Activity{
 				Log.d("faculty list","login folder="+URL);
 				
 				HttpGet get = new HttpGet("http://192.168.144.1/order/login.php?type=user&email=omkarsayajihande@gmail.com&pass=welcome123");
-				while(k>0){
-					Log.d("Check", "Check "+k);
-					k--;
-				}
+				
 		        HttpResponse responseGet = client.execute(get);  
 		        HttpEntity resEntity = responseGet.getEntity();
 		        if (resEntity != null) 
@@ -95,10 +105,18 @@ public class LoginActivity extends Activity{
 					obj = array.getJSONObject(i);
 					
 					tmp_fname = obj.getString("name");
+					tmp_id = obj.getString("id");
+					tmp_active = obj.getString("active");
+					
+					if(tmp_active.equals("1")){
+						Log.d("Active", tmp_active);
+						auth=1;
+						return true;
+					}
 //					Toast.makeText(LoginActivity.this, tmp_fname, Toast.LENGTH_LONG).show();
 					
 				}
-				return tmp_fname;
+				return false;
 			}
 			catch(Exception e)
 			{
@@ -110,11 +128,28 @@ public class LoginActivity extends Activity{
 		}
 
 		@Override
-		protected void onPostExecute(String result) {
+		protected void onPostExecute(Boolean result) {
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
-			Log.d("Name",result);
-			Toast.makeText(LoginActivity.this, result, Toast.LENGTH_SHORT).show();
+//			int k=25;
+//			while(k>0){
+//				Log.d("Check", "Check "+k);
+//				k--;
+//			}
+			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		    SharedPreferences.Editor editor = prefs.edit();
+			if(result){
+				Toast.makeText(LoginActivity.this, "Authenticated", Toast.LENGTH_LONG).show();
+				Log.d("Authenticated", tmp_fname+tmp_id+tmp_active);
+			    editor.putString("name",tmp_fname);
+			    editor.putString("id",tmp_id);
+//			    editor.putString("active",tmp_active);
+			    editor.commit();
+			    startActivity(i);
+			}else{
+				Toast.makeText(LoginActivity.this, "Authentication Failure", Toast.LENGTH_LONG).show();
+			}
+			
 		}
 		
 	}
