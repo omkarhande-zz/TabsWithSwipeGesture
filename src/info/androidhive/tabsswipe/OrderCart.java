@@ -23,26 +23,42 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
 public class OrderCart extends Fragment {
 	ListView lv;
 	int cust_id;
-	 ArrayAdapter<String> mAdapter;
+	ArrayAdapter<String> mAdapter;
 	ArrayList<String> orderItems, itemId, itemTotal;
+	Button b;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 		
 		cust_id = Integer.valueOf(prefs.getString("id", ""));
+		
 		View rootView = inflater.inflate(R.layout.fragment_cart, container, false);
 		lv = (ListView)rootView.findViewById(R.id.cartList);
+		b = (Button)rootView.findViewById(R.id.placeOrder);
 //		String[] values = new String[] { "Butter Chicken", "Chicken Hyderabadi Biryani", "Cheese Garlic Naan",
 //                "Malai Kofta", "Tandoori Chicken"};
 		
 		GetOrderDetails task = new GetOrderDetails();
-		task.execute();         
+		task.execute();  
+		
+		b.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				PlaceOrder task = new PlaceOrder();
+				String rsp;
+				rsp = task.place(cust_id);
+				Toast.makeText(getActivity(), rsp, Toast.LENGTH_LONG).show();
+			}
+		});
 		
 		return rootView;
 	}
@@ -121,15 +137,19 @@ public class OrderCart extends Fragment {
 
                             	     public void onClick(DialogInterface dialog, int whichButton) {
                             	    	 String item = orderItems.get(orderItems.indexOf(lv.getItemAtPosition(reverseSortedPositions[0])));
-                            	    	 Toast.makeText(getActivity(),item,Toast.LENGTH_SHORT).show();
+                            	    	 
 //                            	    	 Toast.makeText(getActivity(),orderItems.get(reverseSortedPositions[0])+" Item dismissed",Toast.LENGTH_SHORT).show();
                             	    	 DeleteFromCart delete = new DeleteFromCart();
-                            	    	 delete.deleteItem(Integer.valueOf(itemId.get(orderItems.indexOf(lv.getItemAtPosition(reverseSortedPositions[0])))));
-                                         
-                            	    	 for (int position : reverseSortedPositions) {
-                                             mAdapter.remove(mAdapter.getItem(position));
-                                         }
-                                         mAdapter.notifyDataSetChanged();
+                            	    	 String rsp;
+                            	    	 rsp = delete.deleteItem(Integer.valueOf(itemId.get(orderItems.indexOf(lv.getItemAtPosition(reverseSortedPositions[0])))));
+                            	    	 
+                            	    	 if(rsp.equals("Item deleted")){
+	                            	    	 for (int position : reverseSortedPositions) {
+	                                             mAdapter.remove(mAdapter.getItem(position));
+	                                         }
+	                                         mAdapter.notifyDataSetChanged();
+                            	    	 }
+                            	    	 Toast.makeText(getActivity(),rsp,Toast.LENGTH_SHORT).show();
                             	     }})
                             	  .setNegativeButton(android.R.string.no, null).show();
                             	 

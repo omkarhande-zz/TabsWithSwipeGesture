@@ -54,17 +54,10 @@ public class LoginActivity extends Activity{
 					i = new Intent(LoginActivity.this,MainActivity.class);
 					
 				}else{
-					i = new Intent(LoginActivity.this,AdminActivity.class);
+					i = new Intent(LoginActivity.this,WaiterHome.class);
 				}
 				GetUserDetails task= new GetUserDetails();
 				task.execute();
-//				startActivity(i);
-//				Toast.makeText(LoginActivity.this, String.valueOf, Toast.LENGTH_SHORT).show();
-//				if(auth == 1){
-//					startActivity(i);
-//				}else{
-//					Toast.makeText(LoginActivity.this, "Invalid", Toast.LENGTH_SHORT).show();
-//				}
 			}
 		});
 	}
@@ -143,7 +136,6 @@ public class LoginActivity extends Activity{
 				Log.d("Authenticated", tmp_fname+tmp_id+tmp_active);
 			    editor.putString("name",tmp_fname);
 			    editor.putString("id",tmp_id);
-//			    editor.putString("active",tmp_active);
 			    editor.commit();
 			    startActivity(i);
 			}else{

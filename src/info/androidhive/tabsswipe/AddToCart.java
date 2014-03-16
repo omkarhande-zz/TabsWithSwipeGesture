@@ -62,18 +62,7 @@ public class AddToCart {
 				for(int i=0;i<arrlen;i++)
 				{	
 					obj = array.getJSONObject(i);
-//					name = obj.getString("name");
-//					id = obj.getString("id");
-//					total = obj.getString("total");
 					response = obj.getString("response");
-					
-//					
-//					itemId.add(id);
-//					orderItems.add(name+" - "+total);
-//					itemTotal.add(total);
-//					
-//					Toast.makeText(LoginActivity.this, tmp_fname, Toast.LENGTH_LONG).show();
-					
 				}
 				
 			}catch(Exception e){

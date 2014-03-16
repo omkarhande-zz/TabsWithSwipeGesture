@@ -21,17 +21,32 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-        public static final int chicken=0x7f020000;
-        public static final int down=0x7f020001;
-        public static final int food=0x7f020002;
-        public static final int ic_launcher=0x7f020003;
-        public static final int logo1=0x7f020004;
-        public static final int up=0x7f020005;
-        public static final int veg=0x7f020006;
-        public static final int veg2=0x7f020007;
+        public static final int btn_check_buttonless_off=0x7f020000;
+        public static final int btn_check_buttonless_on=0x7f020001;
+        public static final int btn_check_on=0x7f020002;
+        public static final int btn_close_normal=0x7f020003;
+        public static final int btn_close_pressed=0x7f020004;
+        public static final int btn_close_selected=0x7f020005;
+        public static final int btn_dialog_disable=0x7f020006;
+        public static final int btn_dialog_normal=0x7f020007;
+        public static final int btn_dialog_pressed=0x7f020008;
+        public static final int btn_dialog_selected=0x7f020009;
+        public static final int chicken=0x7f02000a;
+        public static final int down=0x7f02000b;
+        public static final int food=0x7f02000c;
+        public static final int ic_action_accept=0x7f02000d;
+        public static final int ic_action_cancel=0x7f02000e;
+        public static final int ic_clear_search_api_holo_light=0x7f02000f;
+        public static final int ic_delete=0x7f020010;
+        public static final int ic_dialog_focused_holo=0x7f020011;
+        public static final int ic_launcher=0x7f020012;
+        public static final int logo1=0x7f020013;
+        public static final int up=0x7f020014;
+        public static final int veg=0x7f020015;
+        public static final int veg2=0x7f020016;
     }
     public static final class id {
-        public static final int action_settings=0x7f08001e;
+        public static final int action_settings=0x7f080022;
         public static final int button1=0x7f080004;
         public static final int button2=0x7f080005;
         public static final int cartList=0x7f08000b;
@@ -50,7 +65,9 @@ public final class R {
         public static final int lvExp=0x7f08000d;
         public static final int nameButton=0x7f080009;
         public static final int numberPicker1=0x7f080003;
+        public static final int order=0x7f080020;
         public static final int pager=0x7f080000;
+        public static final int pager2=0x7f080021;
         public static final int pass=0x7f080012;
         public static final int placeOrder=0x7f08000c;
         public static final int radioAdmin=0x7f080015;
@@ -61,6 +78,8 @@ public final class R {
         public static final int textView2=0x7f080006;
         public static final int textViewFaculty=0x7f080018;
         public static final int tvNumberFac=0x7f08001c;
+        public static final int update=0x7f08001f;
+        public static final int updateList=0x7f08001e;
         public static final int userType=0x7f080013;
     }
     public static final class layout {
@@ -82,6 +101,11 @@ public final class R {
         public static final int pending=0x7f03000f;
         public static final int specials_list_layout=0x7f030010;
         public static final int specials_row_layout=0x7f030011;
+        public static final int update_dialog=0x7f030012;
+        public static final int update_list=0x7f030013;
+        public static final int update_list_row=0x7f030014;
+        public static final int waiter=0x7f030015;
+        public static final int waiter_home=0x7f030016;
     }
     public static final class menu {
         public static final int main=0x7f070000;
