@@ -16,14 +16,19 @@ import android.app.Dialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 
 public class UpdateList extends Fragment {
 
@@ -34,13 +39,21 @@ public class UpdateList extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		Toast.makeText(getActivity(), "Welcome to update list", Toast.LENGTH_LONG).show();
 		View rootView = inflater.inflate(R.layout.update_list, container, false);
 		lv = (ListView)rootView.findViewById(R.id.updateList);
 		GetUpdates task = new GetUpdates();
 		task.execute();
 		return rootView;
 	}
-	
+	public void refreshFragment(){
+		Fragment frg = null;
+		frg = getFragmentManager().findFragmentByTag(getTag());
+		final FragmentTransaction ft = getFragmentManager().beginTransaction();
+		ft.detach(frg);
+		ft.attach(frg);
+		ft.commit();
+	}
 	private class GetUpdates extends AsyncTask<String, Void, Boolean>{
 		
 		JSONArray array;
@@ -127,21 +140,41 @@ public class UpdateList extends Fragment {
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 						long arg3) {
 					// TODO Auto-generated method stub
-					show();
+//					Toast.makeText(getActivity(), id.get(arg2), Toast.LENGTH_LONG).show();
+					show(Integer.valueOf(id.get(arg2)));
 				}
 	          });
 		}
 		
 	}
-	public void show()
+	public void show(final int id)
     {
 
 		final Dialog d = new Dialog(this.getActivity());
         d.setTitle("Request Approval");
         d.setContentView(R.layout.update_dialog);
-       
-
-      d.show();
+        ImageButton yes = (ImageButton)d.findViewById(R.id.yes);
+        ImageButton no = (ImageButton)d.findViewById(R.id.no);
+        Button cancel = (Button)d.findViewById(R.id.cancel);
+        yes.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+//				Code to refresh a fragment !
+				ApproveUpdates app = new ApproveUpdates();
+				app.approve(id);
+				d.dismiss();
+				Fragment frg = null;
+				frg = getFragmentManager().findFragmentByTag(getTag());
+				final FragmentTransaction ft = getFragmentManager().beginTransaction();
+				ft.detach(frg);
+				ft.attach(frg);
+				ft.commit();
+			}
+		});
+        d.show();
+        
 
 
     }

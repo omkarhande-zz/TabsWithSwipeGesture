@@ -18,12 +18,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -33,6 +35,7 @@ public class OrderCart extends Fragment {
 	ArrayAdapter<String> mAdapter;
 	ArrayList<String> orderItems, itemId, itemTotal;
 	Button b;
+	ImageButton ib;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -42,6 +45,7 @@ public class OrderCart extends Fragment {
 		View rootView = inflater.inflate(R.layout.fragment_cart, container, false);
 		lv = (ListView)rootView.findViewById(R.id.cartList);
 		b = (Button)rootView.findViewById(R.id.placeOrder);
+		ib = (ImageButton)rootView.findViewById(R.id.refreshCart);
 //		String[] values = new String[] { "Butter Chicken", "Chicken Hyderabadi Biryani", "Cheese Garlic Naan",
 //                "Malai Kofta", "Tandoori Chicken"};
 		
@@ -57,6 +61,20 @@ public class OrderCart extends Fragment {
 				String rsp;
 				rsp = task.place(cust_id);
 				Toast.makeText(getActivity(), rsp, Toast.LENGTH_LONG).show();
+			}
+		});
+		ib.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Toast.makeText(getActivity(), "Refreshing...", Toast.LENGTH_SHORT).show();
+				Fragment frg = null;
+				frg = getFragmentManager().findFragmentByTag(getTag());
+				final FragmentTransaction ft = getFragmentManager().beginTransaction();
+				ft.detach(frg);
+				ft.attach(frg);
+				ft.commit();
 			}
 		});
 		

@@ -2,24 +2,52 @@ package info.androidhive.tabsswipe;
 
 import info.androidhive.tabsswipe.adapter.TabsPagerAdapterWaiter;
 import android.app.ActionBar;
-import android.app.FragmentTransaction;
 import android.app.ActionBar.Tab;
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-
-import android.widget.Toast;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 public class WaiterHome extends FragmentActivity implements ActionBar.TabListener {
 
+	public int index;
 	private ViewPager viewPager;
 	private TabsPagerAdapterWaiter mAdapter;
 	private ActionBar actionBar;
 	// Tab titles
 	private String[] tabs = { "Update Requests", "New Orders" };
-
+	
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    // Inflate the menu items for use in the action bar
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.waiter_activity_menu, menu);
+	    return super.onCreateOptionsMenu(menu);
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle presses on the action bar items
+	    switch (item.getItemId()) {
+	        case R.id.action_refresh:
+	        	Intent i = getIntent();
+	        	finish();
+	        	startActivity(i);
+//	        	actionBar.setSelectedNavigationItem(index);
+//	        	viewPager.setCurrentItem(index);
+//	            openSearch();
+	            return true;
+	        case R.id.action_settings:
+//	            openSettings();
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -28,7 +56,7 @@ public class WaiterHome extends FragmentActivity implements ActionBar.TabListene
 		String name = prefs.getString("name", "");
 		String id = prefs.getString("id", "");
 		
-		Toast.makeText(WaiterHome.this, "Welcome "+name+"!", Toast.LENGTH_SHORT).show();
+//		Toast.makeText(WaiterHome.this, "Welcome "+name+"!", Toast.LENGTH_SHORT).show();
 
 		// Initilization
 		viewPager = (ViewPager) findViewById(R.id.pager2);
@@ -52,6 +80,7 @@ public class WaiterHome extends FragmentActivity implements ActionBar.TabListene
 
 			@Override
 			public void onPageSelected(int position) {
+				index = position;
 				// on changing the page
 				// make respected tab selected
 				actionBar.setSelectedNavigationItem(position);

@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.06"
-            android:text="Request Approval"
+            android:text="Request details"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
@@ -22,7 +22,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.06"
             android:ems="10"
-            android:inputType="textMultiLine" >
+            android:inputType="textMultiLine" 
+            android:hint = "Any additional comments">
 
             <requestFocus />
         </EditText>
@@ -34,19 +35,19 @@
             android:layout_gravity="center_horizontal" >
 
             <ImageButton
-                android:id="@+id/button1"
+                android:id="@+id/no"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_action_cancel" />
 
             <ImageButton
-                android:id="@+id/button2"
+                android:id="@+id/yes"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_action_accept" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/cancel"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Cancel" />
