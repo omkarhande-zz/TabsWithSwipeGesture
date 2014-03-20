@@ -1,51 +1,66 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent" 
+    android:orientation="horizontal"
+    android:background="#AFD3DB"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:minWidth="100dp" >
+        android:layout_height="wrap_content"
+        android:minWidth="100dp"
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/itemName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.06"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:text="Butter Chicken"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
             android:id="@+id/itemDesc"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.41"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
             android:text="Butter chicken or murgh makhani is a classic Indian recipe. A mild curry in which marinaded chicken tikkas are cooked in butter with a makhani sauce" />
 
         <NumberPicker
             android:id="@+id/numberPicker1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal" />
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal" >
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
 
             <Button
                 android:id="@+id/button1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Add" />
+                android:layout_weight="1"
+                android:background="@drawable/custom_btn_genoa"
+                android:text="Add"
+                android:textColor="#FFFFFF" 
+                style="@style/btnStyleGenoa"/>
 
             <Button
                 android:id="@+id/button2"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Cancel" />
+                android:layout_weight="1"
+                android:background="@drawable/custom_btn_genoa"
+                android:text="Cancel"
+                android:textColor="#FFFFFF" 
+                style="@style/btnStyleGenoa"/>
         </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

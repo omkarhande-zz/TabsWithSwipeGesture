@@ -2,7 +2,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" 
-    android:background="#3399FF">
+    android:background="#AFD3DB">
 
     <ListView
         android:id="@+id/cartList"
@@ -20,15 +20,17 @@
             android:id="@+id/refreshCart"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="#4C4C4C"
-            android:src="@drawable/ic_menu_refresh" />
+            android:background="@drawable/custom_btn_arsenic"
+            android:src="@drawable/ic_menu_refresh" 
+            style="@style/btnStyleArsenic"/>
         <Button
         android:id="@+id/placeOrder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:background="#E6E6E6"
-        android:text="Place Order" />
+        android:text="Place Order"
+        android:background="@drawable/custom_btn_genoa"
+        style="@style/btnStyleGenoa"/>
         
         
 

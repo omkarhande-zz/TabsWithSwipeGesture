@@ -64,9 +64,11 @@ public class SpecialsFragment extends Fragment {
 	public void show(final int pos)
     {
 
+//		final Dialog d = new Dialog(this.getActivity(),R.style.cust_dialog);
 		final Dialog d = new Dialog(this.getActivity());
         d.setTitle("Add Item");
         d.setContentView(R.layout.dialog);
+        
         Button b1 = (Button) d.findViewById(R.id.button1);
         Button b2 = (Button) d.findViewById(R.id.button2);
         TextView tvName = (TextView)d.findViewById(R.id.itemName);

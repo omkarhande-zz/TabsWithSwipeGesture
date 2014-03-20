@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal" 
-    android:background="#66FF66">
+    android:background="#AFD3DB">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:text="Item Name"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#996600"
+            android:textColor="#D64524"
             android:textStyle="bold" />
 
         <TextView
