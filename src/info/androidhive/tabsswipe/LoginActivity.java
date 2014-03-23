@@ -1,5 +1,9 @@
 package info.androidhive.tabsswipe;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
+import com.google.android.gcm.GCMRegistrar;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -10,6 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -22,8 +27,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-
-
 public class LoginActivity extends Activity{
 
 	EditText email, pass;
@@ -34,6 +37,26 @@ public class LoginActivity extends Activity{
 	JSONObject obj;
 	int auth;
 	Intent i;
+	GoogleCloudMessaging gcm;
+    AtomicInteger msgId = new AtomicInteger();
+    Context context;
+
+    String regid;
+	public static final String EXTRA_MESSAGE = "message";
+	public static final String PROPERTY_REG_ID = "registration_id";
+	private static final String PROPERTY_APP_VERSION = "appVersion";
+	private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+	
+	 /**
+     * Substitute you own sender ID here. This is the project number you got
+     * from the API Console, as described in "Getting Started."
+     */
+    String SENDER_ID = "694930074232";
+
+    /**
+     * Tag used on log messages.
+     */
+    static final String TAG = "GCM Demo";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -45,6 +68,19 @@ public class LoginActivity extends Activity{
 		email = (EditText)findViewById(R.id.email);
 		pass = (EditText)findViewById(R.id.pass);
 		auth=0;
+		context = getApplicationContext();
+
+        // Check device for Play Services APK. If check succeeds, proceed with GCM registration.
+        if (checkPlayServices()) {
+            gcm = GoogleCloudMessaging.getInstance(this);
+            regid = getRegistrationId(context);
+
+            if (regid.isEmpty()) {
+                registerInBackground();
+            }
+        } else {
+            Log.i(TAG, "No valid Google Play Services APK found.");
+        }
 		b.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
