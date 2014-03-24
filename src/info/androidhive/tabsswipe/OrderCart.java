@@ -60,6 +60,8 @@ public class OrderCart extends Fragment {
 				PlaceOrder task = new PlaceOrder();
 				String rsp;
 				rsp = task.place(cust_id);
+				NotifyGCM notify_waiter = new NotifyGCM();
+				notify_waiter.notify(1,"New order approval request","Order Approval", cust_id);
 				Toast.makeText(getActivity(), rsp, Toast.LENGTH_LONG).show();
 			}
 		});

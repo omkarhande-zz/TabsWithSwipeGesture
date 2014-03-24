@@ -32,21 +32,17 @@ public class WaiterHome extends FragmentActivity implements ActionBar.TabListene
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle presses on the action bar items
-	    switch (item.getItemId()) {
-	        case R.id.action_refresh:
-	        	Intent i = getIntent();
-	        	finish();
-	        	startActivity(i);
-//	        	actionBar.setSelectedNavigationItem(index);
-//	        	viewPager.setCurrentItem(index);
-//	            openSearch();
-	            return true;
-	        case R.id.action_settings:
-//	            openSettings();
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
+		int some_id = item.getItemId();
+		if(some_id == R.id.action_refresh){
+			Intent i = getIntent();
+        	finish();
+        	startActivity(i);
+            return true;
+		}else if (some_id == R.id.action_settings){
+			return true;
+		}else{
+			return super.onOptionsItemSelected(item);
+		}
 	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
