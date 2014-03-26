@@ -26,7 +26,7 @@ public class ViewOrder extends Activity{
 
 	ListView lv;
 	Button b;
-	String id;
+	String id, waiter_id;
 	ArrayList<String> orderItems;
 	ArrayAdapter<String> adapter;
 	@Override
@@ -35,6 +35,7 @@ public class ViewOrder extends Activity{
 		super.onCreate(savedInstanceState);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		id = prefs.getString("id", "");
+		waiter_id = prefs.getString("waiter_id", "");
 		setContentView(R.layout.view_order);
 		lv = (ListView)findViewById(R.id.items);
 		b = (Button)findViewById(R.id.approveOrder);
@@ -45,6 +46,8 @@ public class ViewOrder extends Activity{
 				// TODO Auto-generated method stub
 				ApproveOrder order = new ApproveOrder();
 				order.approve(Integer.valueOf(id));
+				NotifyGCM task  = new NotifyGCM();
+				task.notify(2,"Congratulations! Your order is placed and getting ready!", "Order Placed", Integer.valueOf(waiter_id));
 				onBackPressed();
 			}
 		});

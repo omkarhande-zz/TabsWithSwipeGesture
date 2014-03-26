@@ -64,6 +64,10 @@ public class AddToCart {
 					obj = array.getJSONObject(i);
 					response = obj.getString("response");
 				}
+				if(response.equals("Request sent for approval")){
+					NotifyGCM taskGCM = new NotifyGCM();
+					taskGCM.notify(1, "New Update Request", "You have a new update request to approve", Integer.valueOf(cust_id));
+				}
 				
 			}catch(Exception e){
 				

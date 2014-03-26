@@ -51,10 +51,7 @@ public class WaiterHome extends FragmentActivity implements ActionBar.TabListene
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		String name = prefs.getString("name", "");
 		String id = prefs.getString("id", "");
-		
-//		Toast.makeText(WaiterHome.this, "Welcome "+name+"!", Toast.LENGTH_SHORT).show();
 
-		// Initilization
 		viewPager = (ViewPager) findViewById(R.id.pager2);
 		actionBar = getActionBar();
 		mAdapter = new TabsPagerAdapterWaiter(getSupportFragmentManager());

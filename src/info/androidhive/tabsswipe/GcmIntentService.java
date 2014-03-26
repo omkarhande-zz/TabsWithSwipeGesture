@@ -1,5 +1,7 @@
 package info.androidhive.tabsswipe;
 
+import java.util.Calendar;
+
 import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -20,11 +22,20 @@ public class GcmIntentService extends IntentService {
     public GcmIntentService() {
         super("GcmIntentService");
     }
+    
+    public int getUnqNum(){
+    	Calendar c = Calendar.getInstance(); 
+    	int seconds = c.get(Calendar.SECOND);
+    	int hours = c.get(Calendar.HOUR_OF_DAY);
+    	int retVal = (hours*60)+seconds;
+    	return retVal;
+    }
     public static final String TAG = "GCM Demo";
 
     @Override
     protected void onHandleIntent(Intent intent) {
         Bundle extras = intent.getExtras();
+        
         GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
         // The getMessageType() intent parameter must be the intent you received
         // in your BroadcastReceiver.
@@ -67,6 +78,7 @@ public class GcmIntentService extends IntentService {
     private void sendNotification(Bundle msg) {
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
+        
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, LoginActivity.class), 0);
@@ -80,6 +92,7 @@ public class GcmIntentService extends IntentService {
         .setContentText(msg.getString("contentText"));
 
         mBuilder.setContentIntent(contentIntent);
-        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+        Log.d("NUM", String.valueOf(getUnqNum()));
+        mNotificationManager.notify(getUnqNum(), mBuilder.build());
     }
 }

@@ -168,6 +168,9 @@ public class OrderCart extends Fragment {
 	                                             mAdapter.remove(mAdapter.getItem(position));
 	                                         }
 	                                         mAdapter.notifyDataSetChanged();
+                            	    	 }else{
+                            	    		 NotifyGCM notify_waiter = new NotifyGCM();
+                            			     notify_waiter.notify(1,"You have a new deletion request","Update Approval", cust_id);
                             	    	 }
                             	    	 Toast.makeText(getActivity(),rsp,Toast.LENGTH_SHORT).show();
                             	     }})

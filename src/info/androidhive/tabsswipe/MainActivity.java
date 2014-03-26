@@ -5,11 +5,15 @@ import android.app.ActionBar;
 import android.app.Dialog;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.Toast;
@@ -20,16 +24,37 @@ public class MainActivity extends FragmentActivity implements
 	private ViewPager viewPager;
 	private TabsPagerAdapter mAdapter;
 	private ActionBar actionBar;
+	String name, id;
 	// Tab titles
 	private String[] tabs = { "Today's Special", "Menu", "Cart", "Feedback", "About us" };
 
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    // Inflate the menu items for use in the action bar
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.user_menu, menu);
+	    return super.onCreateOptionsMenu(menu);
+	}
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle presses on the action bar items
+		int some_id = item.getItemId();
+		NotifyGCM menu_action = new NotifyGCM();
+		if(some_id == R.id.action_request){
+			menu_action.notify(1, "Your assistance has been requested at table - "+id, "Assistance requested", Integer.valueOf(id));
+            return true;
+		}else if (some_id == R.id.action_bill){
+			menu_action.notify(1, "Bill requested at table - "+id, "Bill requested", Integer.valueOf(id));
+			return true;
+		}else{
+			return super.onOptionsItemSelected(item);
+		}
+	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-		String name = prefs.getString("name", "");
-		String id = prefs.getString("id", "");
+		name = prefs.getString("name", "");
+		id = prefs.getString("id", "");
 		
 		Toast.makeText(MainActivity.this, "Welcome "+name+"!", Toast.LENGTH_SHORT).show();
 

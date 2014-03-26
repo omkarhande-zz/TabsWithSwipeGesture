@@ -1,16 +1,39 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#AFD3DB"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <ListView
-        android:id="@+id/listView1"
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" >
-    </ListView>
-    
-</RelativeLayout>
+        android:background="#217082"
+        android:text="We value our customer&apos;s feedback"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/feedback_test"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#E4EEF0"
+        android:ems="10"
+        android:hint="Your feedback here"
+        android:inputType="textMultiLine"
+        android:lines="10"
+        android:singleLine="false" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/send_feedback"
+        style="@style/btnStyleGenoa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_btn_genoa"
+        android:text="Send Feedback" />
+
+</LinearLayout>

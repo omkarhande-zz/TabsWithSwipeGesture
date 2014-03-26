@@ -13,8 +13,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -35,11 +37,14 @@ public class UpdateList extends Fragment {
 	ListView lv;
 	ArrayList<String> request_id, name, action,quant, id;
 	SimpleAdapter map_adapter,map_newadapter;
+	String waiter_id;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		Toast.makeText(getActivity(), "Welcome to update list", Toast.LENGTH_LONG).show();
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		waiter_id = prefs.getString("id", "");
+		Toast.makeText(getActivity(), "Waiter ID: "+waiter_id, Toast.LENGTH_LONG).show();
 		View rootView = inflater.inflate(R.layout.update_list, container, false);
 		lv = (ListView)rootView.findViewById(R.id.updateList);
 		GetUpdates task = new GetUpdates();
@@ -156,6 +161,22 @@ public class UpdateList extends Fragment {
         ImageButton yes = (ImageButton)d.findViewById(R.id.yes);
         ImageButton no = (ImageButton)d.findViewById(R.id.no);
         Button cancel = (Button)d.findViewById(R.id.cancel);
+        no.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				d.dismiss();
+			}
+		});
+        cancel.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				d.dismiss();
+			}
+		});
         yes.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -164,6 +185,10 @@ public class UpdateList extends Fragment {
 //				Code to refresh a fragment !
 				ApproveUpdates app = new ApproveUpdates();
 				app.approve(id);
+				NotifyGCM task  = new NotifyGCM();
+//				int some_id  = Integer.valueOf(waiter_id);
+//				Toast.makeText(getActivity(), waiter_id, Toast.LENGTH_LONG).show();
+				task.notify(2,"Congratulations! Your Update has been approved", "Update approved",Integer.valueOf(waiter_id) );
 				d.dismiss();
 				Fragment frg = null;
 				frg = getFragmentManager().findFragmentByTag(getTag());

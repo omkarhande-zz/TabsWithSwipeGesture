@@ -237,71 +237,77 @@ containing a value of this type.
         public static final int ic_delete=0x7f02002c;
         public static final int ic_dialog_focused_holo=0x7f02002d;
         public static final int ic_launcher=0x7f02002e;
-        public static final int ic_menu_refresh=0x7f02002f;
-        public static final int ic_plusone_medium_off_client=0x7f020030;
-        public static final int ic_plusone_small_off_client=0x7f020031;
-        public static final int ic_plusone_standard_off_client=0x7f020032;
-        public static final int ic_plusone_tall_off_client=0x7f020033;
-        public static final int ic_stat_gcm=0x7f020034;
-        public static final int login_back=0x7f020035;
-        public static final int logo1=0x7f020036;
-        public static final int up=0x7f020037;
-        public static final int veg=0x7f020038;
-        public static final int veg2=0x7f020039;
+        public static final int ic_menu_cc=0x7f02002f;
+        public static final int ic_menu_edit=0x7f020030;
+        public static final int ic_menu_mark=0x7f020031;
+        public static final int ic_menu_refresh=0x7f020032;
+        public static final int ic_plusone_medium_off_client=0x7f020033;
+        public static final int ic_plusone_small_off_client=0x7f020034;
+        public static final int ic_plusone_standard_off_client=0x7f020035;
+        public static final int ic_plusone_tall_off_client=0x7f020036;
+        public static final int ic_stat_gcm=0x7f020037;
+        public static final int login_back=0x7f020038;
+        public static final int logo1=0x7f020039;
+        public static final int up=0x7f02003a;
+        public static final int veg=0x7f02003b;
+        public static final int veg2=0x7f02003c;
     }
     public static final class id {
-        public static final int action_refresh=0x7f050033;
-        public static final int action_settings=0x7f050032;
-        public static final int approveOrder=0x7f05002e;
+        public static final int action_bill=0x7f050035;
+        public static final int action_refresh=0x7f050036;
+        public static final int action_request=0x7f050034;
+        public static final int action_settings=0x7f050033;
+        public static final int approveOrder=0x7f05002f;
         public static final int button1=0x7f050009;
         public static final int button2=0x7f05000a;
-        public static final int cancel=0x7f05002b;
+        public static final int cancel=0x7f05002c;
         public static final int cartList=0x7f050010;
-        public static final int clear=0x7f050016;
-        public static final int dismissable_container=0x7f050022;
-        public static final int display=0x7f050017;
+        public static final int clear=0x7f050017;
+        public static final int dismissable_container=0x7f050023;
+        public static final int display=0x7f050018;
         public static final int editText1=0x7f05000d;
-        public static final int email=0x7f05001b;
-        public static final int heading=0x7f050018;
+        public static final int email=0x7f05001c;
+        public static final int feedback_test=0x7f050014;
+        public static final int heading=0x7f050019;
         public static final int hybrid=0x7f050004;
         public static final int imageView1=0x7f05000f;
-        public static final int imageViewFac=0x7f050028;
+        public static final int imageViewFac=0x7f050029;
         public static final int itemDesc=0x7f050007;
         public static final int itemName=0x7f050006;
-        public static final int items=0x7f05002d;
-        public static final int lblListHeader=0x7f050019;
-        public static final int lblListItem=0x7f05001a;
-        public static final int listView1=0x7f050014;
-        public static final int listViewFaculty=0x7f050024;
-        public static final int loginButton=0x7f050020;
+        public static final int items=0x7f05002e;
+        public static final int lblListHeader=0x7f05001a;
+        public static final int lblListItem=0x7f05001b;
+        public static final int listViewFaculty=0x7f050025;
+        public static final int loginButton=0x7f050021;
         public static final int lvExp=0x7f050013;
         public static final int nameButton=0x7f05000e;
-        public static final int no=0x7f050029;
+        public static final int no=0x7f05002a;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
         public static final int numberPicker1=0x7f050008;
-        public static final int order=0x7f050030;
-        public static final int orders_approval=0x7f050021;
+        public static final int order=0x7f050031;
+        public static final int orders_approval=0x7f050022;
         public static final int pager=0x7f050005;
-        public static final int pager2=0x7f050031;
-        public static final int pass=0x7f05001c;
+        public static final int pager2=0x7f050032;
+        public static final int pass=0x7f05001d;
         public static final int placeOrder=0x7f050012;
-        public static final int radioAdmin=0x7f05001f;
-        public static final int radioUser=0x7f05001e;
+        public static final int radioAdmin=0x7f050020;
+        public static final int radioUser=0x7f05001f;
         public static final int refreshCart=0x7f050011;
         public static final int satellite=0x7f050002;
-        public static final int send=0x7f050015;
-        public static final int spDesc=0x7f050026;
-        public static final int spName=0x7f050025;
+        public static final int send=0x7f050016;
+        public static final int send_feedback=0x7f050015;
+        public static final int spDesc=0x7f050027;
+        public static final int spName=0x7f050026;
         public static final int terrain=0x7f050003;
         public static final int textView1=0x7f05000c;
         public static final int textView2=0x7f05000b;
-        public static final int textViewFaculty=0x7f050023;
-        public static final int tvNumberFac=0x7f050027;
-        public static final int update=0x7f05002f;
-        public static final int updateList=0x7f05002c;
-        public static final int userType=0x7f05001d;
-        public static final int yes=0x7f05002a;
+        public static final int textViewFaculty=0x7f050024;
+        public static final int tvNumberFac=0x7f050028;
+        public static final int update=0x7f050030;
+        public static final int updateList=0x7f05002d;
+        public static final int userType=0x7f05001e;
+        public static final int yes=0x7f05002b;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f070000;
@@ -337,11 +343,12 @@ containing a value of this type.
     }
     public static final class menu {
         public static final int main=0x7f0a0000;
-        public static final int waiter_activity_menu=0x7f0a0001;
+        public static final int user_menu=0x7f0a0001;
+        public static final int waiter_activity_menu=0x7f0a0002;
     }
     public static final class string {
-        public static final int action_settings=0x7f06001b;
-        public static final int app_name=0x7f06001a;
+        public static final int action_settings=0x7f06001c;
+        public static final int app_name=0x7f06001b;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
          */
@@ -436,8 +443,11 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f060013;
-        public static final int hello_world=0x7f06001c;
-        public static final int server_addr=0x7f06001d;
+        public static final int hello_world=0x7f06001d;
+        /**  Location client code resources (prefix with location_client) 
+         */
+        public static final int location_client_powered_by_google=0x7f06001a;
+        public static final int server_addr=0x7f06001e;
     }
     public static final class style {
         /** 

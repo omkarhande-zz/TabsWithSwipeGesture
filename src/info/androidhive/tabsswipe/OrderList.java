@@ -31,10 +31,13 @@ public class OrderList extends Fragment{
 	ArrayList<String> id, name;
 	ArrayAdapter<String> adapter;
 	Intent i;
+	String waiter_id;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		waiter_id = prefs.getString("id", "");
 		View rootView = inflater.inflate(R.layout.order_requests, container, false);
 		lv = (ListView)rootView.findViewById(R.id.orders_approval);
 		i = new Intent(getActivity(),ViewOrder.class);
@@ -105,6 +108,7 @@ public class OrderList extends Fragment{
 					// TODO Auto-generated method stub
 //					Toast.makeText(getActivity(), id.get(arg2), Toast.LENGTH_SHORT).show();
 					editor.putString("id",id.get(arg2));
+					editor.putString("waiter_id", waiter_id);
 				    editor.commit();
 				    startActivity(i);
 					
