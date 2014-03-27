@@ -13,12 +13,12 @@ import org.apache.http.message.BasicNameValuePair;
 import android.os.AsyncTask;
 
 public class NotifyGCM {
-	int msg_type, user_id;
+	int msg_type, pair_id;
 	String msg_title, msg_content;
 	
 	public void notify(int type, String msg, String title,int id){
 		msg_type = type;
-		user_id = id;
+		pair_id = id;
 		msg_title = title;
 		msg_content = msg;
 		SendNotification task = new SendNotification();
@@ -39,7 +39,7 @@ public class NotifyGCM {
 				pairs.add(new BasicNameValuePair("msg", msg_content));
 				pairs.add(new BasicNameValuePair("title", msg_title));
 				pairs.add(new BasicNameValuePair("type", String.valueOf(msg_type)));
-				pairs.add(new BasicNameValuePair("user_id", String.valueOf(user_id)));
+				pairs.add(new BasicNameValuePair("pair_id", String.valueOf(pair_id)));
 		        
 		        post.setEntity(new UrlEncodedFormEntity(pairs));
 		        HttpResponse responseGet = client.execute(post);

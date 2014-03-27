@@ -16,14 +16,15 @@ import android.util.Log;
 import android.widget.Toast;
 
 public class AddToCart {
-	int cust_id, item_id, quant;
+	int cust_id, item_id, quant, pair_id;
 	String response;
 	JSONArray array;
 	JSONObject obj;
 	
-	public String addItem(int cust, int item, int q){
+	public String addItem(int cust, int item, int q, int pair){
 		cust_id = cust;
 		item_id = item;
+		pair_id = pair;
 		quant = q;
 		Log.d("input", String.valueOf(cust_id)+" "+String.valueOf(item_id)+" "+String.valueOf(quant));
 		CheckAndAdd task = new CheckAndAdd();
@@ -66,7 +67,7 @@ public class AddToCart {
 				}
 				if(response.equals("Request sent for approval")){
 					NotifyGCM taskGCM = new NotifyGCM();
-					taskGCM.notify(1, "New Update Request", "You have a new update request to approve", Integer.valueOf(cust_id));
+					taskGCM.notify(1, "New Update Request", "You have a new update request to approve", Integer.valueOf(pair_id));
 				}
 				
 			}catch(Exception e){

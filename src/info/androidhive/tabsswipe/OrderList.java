@@ -28,7 +28,7 @@ import android.widget.ListView;
 public class OrderList extends Fragment{
 
 	ListView lv;
-	ArrayList<String> id, name;
+	ArrayList<String> id, name, pair_id;
 	ArrayAdapter<String> adapter;
 	Intent i;
 	String waiter_id;
@@ -37,7 +37,7 @@ public class OrderList extends Fragment{
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-		waiter_id = prefs.getString("id", "");
+		waiter_id = prefs.getString("waiter_id", "");
 		View rootView = inflater.inflate(R.layout.order_requests, container, false);
 		lv = (ListView)rootView.findViewById(R.id.orders_approval);
 		i = new Intent(getActivity(),ViewOrder.class);
@@ -51,16 +51,17 @@ public class OrderList extends Fragment{
 		String response;
 		JSONArray array;
 		JSONObject obj;
-		String order_id, order_name;
+		String order_id, order_name, order_pair;
 		@Override
 		protected Boolean doInBackground(String... arg0) {
 			// TODO Auto-generated method stub
 			id = new ArrayList<String>();
 			name = new ArrayList<String>();
+			pair_id = new ArrayList<String>();
 			try{
 				HttpClient client = new DefaultHttpClient();  
 //				String folder = getString(R.string.server_addr);
-				HttpGet get = new HttpGet("http://192.168.144.1/order/get_orders.php");
+				HttpGet get = new HttpGet("http://192.168.144.1/order/get_orders.php?waiter_id="+waiter_id);
 				
 		        HttpResponse responseGet = client.execute(get);  
 		        HttpEntity resEntity = responseGet.getEntity();
@@ -79,10 +80,11 @@ public class OrderList extends Fragment{
 					obj = array.getJSONObject(i);
 					order_id = obj.getString("id");
 					order_name = obj.getString("name");
+					order_pair = obj.getString("pair_id");
 				
 					id.add(order_id);
 					name.add(order_name);			
-					
+					pair_id.add(order_pair);
 				}
 				return true;
 			}catch(Exception e){
@@ -109,6 +111,7 @@ public class OrderList extends Fragment{
 //					Toast.makeText(getActivity(), id.get(arg2), Toast.LENGTH_SHORT).show();
 					editor.putString("id",id.get(arg2));
 					editor.putString("waiter_id", waiter_id);
+					editor.putString("pair_id", pair_id.get(arg2));
 				    editor.commit();
 				    startActivity(i);
 					

@@ -79,9 +79,22 @@ public class GcmIntentService extends IntentService {
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
         
-
+        String direction = msg.getString("type");
+        String className = "info.androidhive.tabsswipe.LoginActivity";
+        if(direction.equals("1")){
+        	className = "info.androidhive.tabsswipe.WaiterHome";
+        }else{
+        	className = "info.androidhive.tabsswipe.MainActivity";
+        }
+        Class cls = null;
+        try {
+			cls = Class.forName(className);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, LoginActivity.class), 0);
+                new Intent(this, cls), 0);
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)

@@ -27,11 +27,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class OrderCart extends Fragment {
 	ListView lv;
-	int cust_id;
+	TextView tv;
+	int cust_id,pair_id, grand_total;
 	ArrayAdapter<String> mAdapter;
 	ArrayList<String> orderItems, itemId, itemTotal;
 	Button b;
@@ -40,9 +42,11 @@ public class OrderCart extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 		
+		grand_total = 0;
 		cust_id = Integer.valueOf(prefs.getString("id", ""));
-		
+		pair_id = Integer.valueOf(prefs.getString("pair_id", ""));
 		View rootView = inflater.inflate(R.layout.fragment_cart, container, false);
+		tv = (TextView)rootView.findViewById(R.id.total);
 		lv = (ListView)rootView.findViewById(R.id.cartList);
 		b = (Button)rootView.findViewById(R.id.placeOrder);
 		ib = (ImageButton)rootView.findViewById(R.id.refreshCart);
@@ -61,7 +65,7 @@ public class OrderCart extends Fragment {
 				String rsp;
 				rsp = task.place(cust_id);
 				NotifyGCM notify_waiter = new NotifyGCM();
-				notify_waiter.notify(1,"New order approval request","Order Approval", cust_id);
+				notify_waiter.notify(1,"New order approval request","Order Approval", pair_id);
 				Toast.makeText(getActivity(), rsp, Toast.LENGTH_LONG).show();
 			}
 		});
@@ -141,6 +145,10 @@ public class OrderCart extends Fragment {
 //			ArrayAdapter<String> files = new ArrayAdapter<String>(getActivity(), 
 //                    android.R.layout.simple_list_item_1, 
 //                    orderItems);
+			for (String s : itemTotal){
+				grand_total += Integer.valueOf(s);
+			}
+			 tv.setText("Total   -   "+String.valueOf(grand_total));
 			mAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,
 	                android.R.id.text1,orderItems);
 			
@@ -157,20 +165,23 @@ public class OrderCart extends Fragment {
 
                             	     public void onClick(DialogInterface dialog, int whichButton) {
                             	    	 String item = orderItems.get(orderItems.indexOf(lv.getItemAtPosition(reverseSortedPositions[0])));
-                            	    	 
+                            	    	 int deduct = Integer.valueOf(itemTotal.get(orderItems.indexOf(lv.getItemAtPosition(reverseSortedPositions[0]))));
 //                            	    	 Toast.makeText(getActivity(),orderItems.get(reverseSortedPositions[0])+" Item dismissed",Toast.LENGTH_SHORT).show();
                             	    	 DeleteFromCart delete = new DeleteFromCart();
                             	    	 String rsp;
                             	    	 rsp = delete.deleteItem(Integer.valueOf(itemId.get(orderItems.indexOf(lv.getItemAtPosition(reverseSortedPositions[0])))));
                             	    	 
                             	    	 if(rsp.equals("Item deleted")){
+                            	    		 grand_total -= deduct;
+                            	    		 tv.setText("Total   -   "+String.valueOf(grand_total));
 	                            	    	 for (int position : reverseSortedPositions) {
 	                                             mAdapter.remove(mAdapter.getItem(position));
 	                                         }
+	                            	    	 
 	                                         mAdapter.notifyDataSetChanged();
                             	    	 }else{
                             	    		 NotifyGCM notify_waiter = new NotifyGCM();
-                            			     notify_waiter.notify(1,"You have a new deletion request","Update Approval", cust_id);
+                            			     notify_waiter.notify(1,"You have a new deletion request","Update Approval", pair_id);
                             	    	 }
                             	    	 Toast.makeText(getActivity(),rsp,Toast.LENGTH_SHORT).show();
                             	     }})

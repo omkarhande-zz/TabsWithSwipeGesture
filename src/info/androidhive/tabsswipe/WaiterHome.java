@@ -20,8 +20,9 @@ public class WaiterHome extends FragmentActivity implements ActionBar.TabListene
 	private ViewPager viewPager;
 	private TabsPagerAdapterWaiter mAdapter;
 	private ActionBar actionBar;
+	String waiter_id, name, pair_id;
 	// Tab titles
-	private String[] tabs = { "Update Requests", "New Orders" };
+	private String[] tabs = { "Update Requests", "New Orders", "Unbilled" };
 	
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    // Inflate the menu items for use in the action bar
@@ -49,9 +50,12 @@ public class WaiterHome extends FragmentActivity implements ActionBar.TabListene
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.waiter_home);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-		String name = prefs.getString("name", "");
-		String id = prefs.getString("id", "");
-
+		name = prefs.getString("name", "");
+		waiter_id = prefs.getString("id", "");
+		pair_id = prefs.getString("pair_id", "");
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putString("waiter_id", waiter_id);
+	    editor.commit();
 		viewPager = (ViewPager) findViewById(R.id.pager2);
 		actionBar = getActionBar();
 		mAdapter = new TabsPagerAdapterWaiter(getSupportFragmentManager());

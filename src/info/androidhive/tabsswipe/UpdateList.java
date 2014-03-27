@@ -35,7 +35,7 @@ import android.widget.Toast;
 public class UpdateList extends Fragment {
 
 	ListView lv;
-	ArrayList<String> request_id, name, action,quant, id;
+	ArrayList<String> request_id, name, action,quant, id, pair_id;
 	SimpleAdapter map_adapter,map_newadapter;
 	String waiter_id;
 	@Override
@@ -43,7 +43,7 @@ public class UpdateList extends Fragment {
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-		waiter_id = prefs.getString("id", "");
+		waiter_id = prefs.getString("waiter_id", "");
 		Toast.makeText(getActivity(), "Waiter ID: "+waiter_id, Toast.LENGTH_LONG).show();
 		View rootView = inflater.inflate(R.layout.update_list, container, false);
 		lv = (ListView)rootView.findViewById(R.id.updateList);
@@ -63,7 +63,7 @@ public class UpdateList extends Fragment {
 		
 		JSONArray array;
 		JSONObject obj;
-		String response, item_name, item_id, item_action, item_quant;
+		String response, item_name, item_id, item_action, item_quant, item_pair;
 		ArrayList<HashMap<String, Object>> map_newlist;
 		@Override
 		protected Boolean doInBackground(String... arg0) {
@@ -71,7 +71,7 @@ public class UpdateList extends Fragment {
 			try{
 				HttpClient client = new DefaultHttpClient();  
 				String folder = getString(R.string.server_addr);
-				HttpGet get = new HttpGet("http://192.168.144.1/order/get_requests.php");
+				HttpGet get = new HttpGet("http://192.168.144.1/order/get_requests.php?waiter_id="+waiter_id);
 				
 		        HttpResponse responseGet = client.execute(get);  
 		        HttpEntity resEntity = responseGet.getEntity();
@@ -91,7 +91,7 @@ public class UpdateList extends Fragment {
 				request_id = new ArrayList<String>();
 				quant = new ArrayList<String>();
 				name = new ArrayList<String>();
-				
+				pair_id = new ArrayList<String>();
 				for(int i=0;i<arrlen;i++)
 				{
 					
@@ -100,6 +100,7 @@ public class UpdateList extends Fragment {
 					item_id = obj.getString("id");
 					item_action = obj.getString("type");
 					item_quant = obj.getString("quant");
+					item_pair = obj.getString("pair_id");
 					if(item_action.equals("1")){
 						item_action = "Update";
 					}else{
@@ -113,6 +114,7 @@ public class UpdateList extends Fragment {
 					name.add(item_name);
 					action.add(item_action);
 					quant.add(item_quant);
+					pair_id.add(item_pair);
 					tmp_newmap.put("chamber", item_action);
 					if(item_action.equals("Update")){
 						tmp_newmap.put("image",android.R.drawable.ic_input_add);
@@ -146,13 +148,13 @@ public class UpdateList extends Fragment {
 						long arg3) {
 					// TODO Auto-generated method stub
 //					Toast.makeText(getActivity(), id.get(arg2), Toast.LENGTH_LONG).show();
-					show(Integer.valueOf(id.get(arg2)));
+					show(Integer.valueOf(id.get(arg2)), Integer.valueOf(pair_id.get(arg2)));
 				}
 	          });
 		}
 		
 	}
-	public void show(final int id)
+	public void show(final int id, final int pair)
     {
 
 		final Dialog d = new Dialog(this.getActivity());
@@ -188,7 +190,7 @@ public class UpdateList extends Fragment {
 				NotifyGCM task  = new NotifyGCM();
 //				int some_id  = Integer.valueOf(waiter_id);
 //				Toast.makeText(getActivity(), waiter_id, Toast.LENGTH_LONG).show();
-				task.notify(2,"Congratulations! Your Update has been approved", "Update approved",Integer.valueOf(waiter_id) );
+				task.notify(2,"Congratulations! Your Update has been approved", "Update approved",pair);
 				d.dismiss();
 				Fragment frg = null;
 				frg = getFragmentManager().findFragmentByTag(getTag());

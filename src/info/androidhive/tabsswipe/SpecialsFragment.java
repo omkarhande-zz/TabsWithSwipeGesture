@@ -37,6 +37,7 @@ public class SpecialsFragment extends Fragment {
 	ArrayList<String> name;
 	ArrayList<String> id;
 	ArrayList<String> desc;
+	ArrayList<String> rate;
 	
 	String did, dname, response;
 	ArrayAdapter<String> adapter,adap_autocomplete;
@@ -45,7 +46,7 @@ public class SpecialsFragment extends Fragment {
 	ListView lv;
 	ArrayList<HashMap<String,String>> map_list;
 	ArrayList<HashMap<String,Object>> map_newlist;
-	int cust_id;
+	int cust_id, pair_id;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class SpecialsFragment extends Fragment {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 		
 		cust_id = Integer.valueOf(prefs.getString("id", ""));
-		
+		pair_id = Integer.valueOf(prefs.getString("pair_id", ""));
 		GetSpecials task = new GetSpecials();
 		task.execute();
 		return rootView;
@@ -73,13 +74,16 @@ public class SpecialsFragment extends Fragment {
         Button b2 = (Button) d.findViewById(R.id.button2);
         TextView tvName = (TextView)d.findViewById(R.id.itemName);
         TextView tvDesc = (TextView)d.findViewById(R.id.itemDesc);
+        TextView tvRate = (TextView)d.findViewById(R.id.itemRate);
 //        Toast.makeText(getActivity(), desc.get(pos), Toast.LENGTH_LONG).show();
         tvName.setText(name.get(pos));
         tvDesc.setText(desc.get(pos));
+        tvRate.setText("Rs. "+rate.get(pos)+"  ");
         final NumberPicker np = (NumberPicker) d.findViewById(R.id.numberPicker1);
         np.setMaxValue(100);
         np.setMinValue(0);
         np.setWrapSelectorWheel(false);
+        
         b2.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -95,7 +99,7 @@ public class SpecialsFragment extends Fragment {
 				// TODO Auto-generated method stub
 				AddToCart add = new AddToCart();
 				String str = id.get(pos);
-				String rsp = add.addItem(cust_id, Integer.valueOf(str), np.getValue());
+				String rsp = add.addItem(cust_id, Integer.valueOf(str), np.getValue(), pair_id);
 				d.dismiss();
 				String msg = String.valueOf(np.getValue());
 				msg = msg+" "+name.get(pos)+" added to cart!";
@@ -109,7 +113,7 @@ public class SpecialsFragment extends Fragment {
 
 		JSONArray array;
 		JSONObject obj;
-		String item_name, item_id, item_des;
+		String item_name, item_id, item_des, item_rate;
 		
 		@Override
 		protected Boolean doInBackground(String... params) {
@@ -134,6 +138,7 @@ public class SpecialsFragment extends Fragment {
 				id = new ArrayList<String>();
 				desc = new ArrayList<String>();
 				name = new ArrayList<String>();
+				rate = new ArrayList<String>();
 				for(int i=0;i<arrlen;i++)
 				{
 					
@@ -141,7 +146,7 @@ public class SpecialsFragment extends Fragment {
 					item_name = obj.getString("name");
 					item_id = obj.getString("id");
 					item_des = obj.getString("des");
-					
+					item_rate = obj.getString("rate");
 					
 					tmp_newmap = new HashMap<String,Object>();
 					tmp_newmap.put("name", item_name);
@@ -149,6 +154,7 @@ public class SpecialsFragment extends Fragment {
 					id.add(item_id);
 					desc.add(item_des);
 					name.add(item_name);
+					rate.add(item_rate);
 					tmp_newmap.put("chamber", item_des);
 					tmp_newmap.put("image",R.drawable.chicken );
 					map_newlist.add(tmp_newmap);

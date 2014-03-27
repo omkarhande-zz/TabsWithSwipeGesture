@@ -37,7 +37,7 @@ public class MenuFragment extends Fragment {
 	HashMap<String, List<String>> listDataChild;
 	ArrayList<String[]> drinks, starters, mainCourse, rice, deserts, bread;
 	List<String> drinks_name, starters_name, mainCourse_name, rice_name, deserts_name, bread_name;
-	String cust_name, cust_id;
+	String cust_name, cust_id, pair_id;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
@@ -45,12 +45,13 @@ public class MenuFragment extends Fragment {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 		cust_name = prefs.getString("name", "");
 		cust_id = prefs.getString("id", "");
+		pair_id = prefs.getString("pair_id", "");
 				expListView = (ExpandableListView) rootView.findViewById(R.id.lvExp);
 				GetMenu task = new GetMenu();
 				task.execute();		
 		return rootView;
 	}
-	public void show(final String name, String desc, final String id)
+	public void show(final String name, String desc, final String id, String price)
     {
 
 		final Dialog d = new Dialog(this.getActivity());
@@ -60,8 +61,10 @@ public class MenuFragment extends Fragment {
         Button b2 = (Button) d.findViewById(R.id.button2);
         TextView itemName = (TextView) d.findViewById(R.id.itemName);
         TextView itemDesc = (TextView) d.findViewById(R.id.itemDesc);
+        TextView itemRate = (TextView) d.findViewById(R.id.itemRate);
         itemName.setText(name);
         itemDesc.setText(desc);
+        itemRate.setText("Rs. "+price+"  ");
         final NumberPicker np = (NumberPicker) d.findViewById(R.id.numberPicker1);
         np.setMaxValue(100);
         np.setMinValue(0);
@@ -80,7 +83,7 @@ public class MenuFragment extends Fragment {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				AddToCart add = new AddToCart();
-				String rsp = add.addItem(Integer.valueOf(cust_id), Integer.valueOf(id), np.getValue());
+				String rsp = add.addItem(Integer.valueOf(cust_id), Integer.valueOf(id), np.getValue(), Integer.valueOf(pair_id));
 
 				
 				Toast.makeText(getActivity(),rsp , Toast.LENGTH_LONG).show();
@@ -124,13 +127,7 @@ public class MenuFragment extends Fragment {
 			rice_name = new ArrayList<String>();
 			deserts_name = new ArrayList<String>();
 			
-			
-//			ArrayList<String[]> testList = new ArrayList<String[]>();
-//			String[] strings =  "abc,def,hij,xyz".split(",");
-//			testList.add(strings);
-//			String[] retVal = testList.get(0);
-//			Log.d("Test", retVal[0]);
-			
+		
 			try{
 				HttpClient client = new DefaultHttpClient();  
 				String folder = getString(R.string.server_addr);
@@ -146,7 +143,7 @@ public class MenuFragment extends Fragment {
 		        }
 				array = new JSONArray(response);
 				int arrlen = array.length();
-				String item_name, item_id, item_des,item_grp;
+				String item_name, item_id, item_des,item_grp, item_rate;
 				for(int i=0;i<arrlen;i++)
 				{
 					
@@ -155,8 +152,9 @@ public class MenuFragment extends Fragment {
 					item_id = obj.getString("id");
 					item_des = obj.getString("des");
 					item_grp = obj.getString("group_id");
+					item_rate = obj.getString("rate");
 					Log.d("group", item_grp);
-					String strings = item_id+","+item_name+","+item_des+","+item_grp;
+					String strings = item_id+","+item_name+","+item_des+","+item_grp+","+item_rate;
 					String[] input = strings.split(",");
 					if(item_grp.equals("1")){
 						drinks.add(input);
@@ -211,7 +209,7 @@ public class MenuFragment extends Fragment {
 					//show();
 					//id, name, desc, grp
 					String[] retVal = null;
-					String sel_name = null, sel_des = null, sel_id=null;
+					String sel_name = null, sel_des = null, sel_id=null, sel_rate = null;
 					if(arg2 == 0){
 						retVal = drinks.get(arg3);		
 					}else if(arg2 == 1){
@@ -225,11 +223,13 @@ public class MenuFragment extends Fragment {
 					}else if(arg2 == 5){
 						retVal = deserts.get(arg3);
 					}
+					Log.d("RetVal", retVal[3]);
 					sel_name = retVal[1];
 					sel_des = retVal[2];
 					sel_id = retVal[0];
+					sel_rate = retVal[4];
 //					Toast.makeText(getActivity(), sel_name+", "+sel_des+", "+sel_id, Toast.LENGTH_SHORT).show();
-					show(sel_name, sel_des, sel_id);
+					show(sel_name, sel_des, sel_id, sel_rate);
 					return false;
 				}
 				

@@ -24,7 +24,7 @@ public class MainActivity extends FragmentActivity implements
 	private ViewPager viewPager;
 	private TabsPagerAdapter mAdapter;
 	private ActionBar actionBar;
-	String name, id;
+	String name, id,pair_id;
 	// Tab titles
 	private String[] tabs = { "Today's Special", "Menu", "Cart", "Feedback", "About us" };
 
@@ -39,10 +39,13 @@ public class MainActivity extends FragmentActivity implements
 		int some_id = item.getItemId();
 		NotifyGCM menu_action = new NotifyGCM();
 		if(some_id == R.id.action_request){
-			menu_action.notify(1, "Your assistance has been requested at table - "+id, "Assistance requested", Integer.valueOf(id));
+			menu_action.notify(1, "Your assistance has been requested at table - "+id, "Assistance requested", Integer.valueOf(pair_id));
             return true;
 		}else if (some_id == R.id.action_bill){
-			menu_action.notify(1, "Bill requested at table - "+id, "Bill requested", Integer.valueOf(id));
+//			menu_action.notify(1, "Bill requested at table - "+id, "Bill requested", Integer.valueOf(pair_id));
+			AskForBill task = new AskForBill();
+			String res = task.ask(Integer.valueOf(id), Integer.valueOf(pair_id));
+			Toast.makeText(MainActivity.this, res, Toast.LENGTH_SHORT).show();
 			return true;
 		}else{
 			return super.onOptionsItemSelected(item);
@@ -55,6 +58,7 @@ public class MainActivity extends FragmentActivity implements
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		name = prefs.getString("name", "");
 		id = prefs.getString("id", "");
+		pair_id = prefs.getString("pair_id", "");
 		
 		Toast.makeText(MainActivity.this, "Welcome "+name+"!", Toast.LENGTH_SHORT).show();
 

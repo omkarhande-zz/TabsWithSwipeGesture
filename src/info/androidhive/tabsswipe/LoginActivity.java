@@ -96,6 +96,7 @@ public class LoginActivity extends Activity{
     					i = new Intent(LoginActivity.this,WaiterHome.class);
     					SCRIPT_URL = "http://192.168.144.1/order/login.php?type=waiter&email=food.delivery.bits@gmail.com&pass=123&gcm_id="+regid;
     				}
+    				Log.d("URL", SCRIPT_URL);
     				GetUserDetails task= new GetUserDetails();
     				task.execute();
     			}
@@ -112,6 +113,7 @@ private class GetUserDetails extends AsyncTask<String,Void,Boolean>{
 		String tmp_fname = null;
 		String tmp_id = null;
 		String tmp_active = null;
+		String tmp_pair_id = null;
 
 		@Override
 		protected Boolean doInBackground(String... arg0) {
@@ -150,6 +152,7 @@ private class GetUserDetails extends AsyncTask<String,Void,Boolean>{
 					tmp_fname = obj.getString("name");
 					tmp_id = obj.getString("id");
 					tmp_active = obj.getString("active");
+					tmp_pair_id = obj.getString("pair_id");
 					
 					if(tmp_active.equals("1")){
 						Log.d("Active", tmp_active);
@@ -186,6 +189,7 @@ private class GetUserDetails extends AsyncTask<String,Void,Boolean>{
 				Log.d("Authenticated", tmp_fname+tmp_id+tmp_active);
 			    editor.putString("name",tmp_fname);
 			    editor.putString("id",tmp_id);
+			    editor.putString("pair_id", tmp_pair_id);
 			    editor.commit();
 			    startActivity(i);
 			}else{

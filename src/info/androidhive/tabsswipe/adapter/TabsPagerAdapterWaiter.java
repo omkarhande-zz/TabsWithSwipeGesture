@@ -1,6 +1,7 @@
 package info.androidhive.tabsswipe.adapter;
 
 import info.androidhive.tabsswipe.OrderList;
+import info.androidhive.tabsswipe.UnbilledFragment;
 import info.androidhive.tabsswipe.UpdateList;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -22,6 +23,9 @@ public class TabsPagerAdapterWaiter extends FragmentPagerAdapter {
 		case 1:
 			// Games fragment activity
 			return new OrderList();
+		case 2:
+			// Games fragment activity
+			return new UnbilledFragment();
 		}
 
 		return null;
@@ -30,7 +34,7 @@ public class TabsPagerAdapterWaiter extends FragmentPagerAdapter {
 	@Override
 	public int getCount() {
 		// get item count - equal to number of tabs
-		return 2;
+		return 3;
 	}
 
 }

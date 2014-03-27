@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent" 
+    android:background="#AFD3DB">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -29,28 +30,40 @@
         </EditText>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center_horizontal" >
 
             <ImageButton
                 android:id="@+id/no"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_action_cancel" />
+                android:src="@drawable/ic_action_cancel" 
+                android:textColor="#FFFFFF" 
+                android:background="@drawable/custom_btn_genoa"
+                style="@style/btnStyleGenoa"
+                android:layout_weight="1"/>
 
             <ImageButton
                 android:id="@+id/yes"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_action_accept" />
+                android:src="@drawable/ic_action_accept" 
+                android:textColor="#FFFFFF" 
+                android:background="@drawable/custom_btn_genoa"
+                android:layout_weight="1"
+                style="@style/btnStyleGenoa"/>
 
             <Button
                 android:id="@+id/cancel"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Cancel" />
+                android:text="Cancel" 
+                android:textColor="#FFFFFF" 
+                android:background="@drawable/custom_btn_genoa"
+                android:layout_weight="1"
+                style="@style/btnStyleGenoa"/>
         </LinearLayout>
     </LinearLayout>
 

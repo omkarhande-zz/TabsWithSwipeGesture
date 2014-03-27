@@ -1,43 +1,46 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Do you want to send this order for billing?"
+        android:background="#AFD3DB" 
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.06"
-            android:text="Please give a name for your order"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <EditText
-            android:id="@+id/editText1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.06"
-            android:ems="10"
-            android:inputType="textMultiLine" >
-
-            <requestFocus />
-        </EditText>
-
-        <LinearLayout
+        <Button
+            android:id="@+id/approve"
+            style="@style/btnStyleGenoa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal" >
+            android:layout_weight="1"
+            android:background="@drawable/custom_btn_genoa"
+            android:text="Approve"
+            android:textColor="#FFFFFF" />
 
             <Button
-                android:id="@+id/nameButton"
+                android:id="@+id/cancel"
+                style="@style/btnStyleGenoa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Set" />
+                android:layout_weight="1"
+                android:background="@drawable/custom_btn_genoa"
+                android:text="Cancel"
+                android:textColor="#FFFFFF" />
 
-        </LinearLayout>
     </LinearLayout>
+
+    
 
 </LinearLayout>
