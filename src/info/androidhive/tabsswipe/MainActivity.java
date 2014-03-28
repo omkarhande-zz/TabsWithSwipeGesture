@@ -47,6 +47,14 @@ public class MainActivity extends FragmentActivity implements
 			String res = task.ask(Integer.valueOf(id), Integer.valueOf(pair_id));
 			Toast.makeText(MainActivity.this, res, Toast.LENGTH_SHORT).show();
 			return true;
+		}else if (some_id == R.id.logout){
+			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		    SharedPreferences.Editor editor = prefs.edit();
+		    editor.clear();
+		    editor.commit();
+		    Intent i = new Intent(MainActivity.this,LoginActivity.class);
+		    startActivity(i);
+			return true;
 		}else{
 			return super.onOptionsItemSelected(item);
 		}

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal" 
-    android:background="#AFD3DB">
+     android:background="#217082">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:text="Item Name"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#CC3300"
+            android:textColor="#FFFF66"
             android:textStyle="bold" />
 
         <TextView
@@ -26,7 +26,8 @@
             android:layout_height="wrap_content"
             android:text="Item Description"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#333" />
+            android:textColor="#FFFFFF" 
+            />
 
      <TextView
             android:id="@+id/tvNumberFac"
@@ -59,7 +60,7 @@
             android:layout_height="30dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="16dp"
-            
+             
             android:src="@drawable/chicken" />
     </LinearLayout>
 </LinearLayout>

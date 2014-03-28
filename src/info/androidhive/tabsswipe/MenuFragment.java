@@ -1,5 +1,8 @@
 package info.androidhive.tabsswipe;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +18,8 @@ import org.json.JSONObject;
 
 import android.app.Dialog;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -26,7 +31,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ImageView;
 import android.widget.NumberPicker;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +45,11 @@ public class MenuFragment extends Fragment {
 	ArrayList<String[]> drinks, starters, mainCourse, rice, deserts, bread;
 	List<String> drinks_name, starters_name, mainCourse_name, rice_name, deserts_name, bread_name;
 	String cust_name, cust_id, pair_id;
+	String image_url;
+	Bitmap bmp;
+	ImageView img;
+	ProgressBar pb;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
@@ -51,7 +63,7 @@ public class MenuFragment extends Fragment {
 				task.execute();		
 		return rootView;
 	}
-	public void show(final String name, String desc, final String id, String price)
+	public void show(final String name, String desc, final String id, String price, String image_name)
     {
 
 		final Dialog d = new Dialog(this.getActivity());
@@ -62,6 +74,9 @@ public class MenuFragment extends Fragment {
         TextView itemName = (TextView) d.findViewById(R.id.itemName);
         TextView itemDesc = (TextView) d.findViewById(R.id.itemDesc);
         TextView itemRate = (TextView) d.findViewById(R.id.itemRate);
+        pb = (ProgressBar)d.findViewById(R.id.progressBar1);
+        img = (ImageView)d.findViewById(R.id.image);
+        img.setVisibility(View.GONE);
         itemName.setText(name);
         itemDesc.setText(desc);
         itemRate.setText("Rs. "+price+"  ");
@@ -92,6 +107,9 @@ public class MenuFragment extends Fragment {
 			}
 		});
         d.show();
+        image_url = "http://192.168.144.1/order/images/"+image_name;
+        GetImage img_task = new GetImage();
+        img_task.execute();
 //        d.getWindow().setLayout(350, 450);
 
 
@@ -143,7 +161,7 @@ public class MenuFragment extends Fragment {
 		        }
 				array = new JSONArray(response);
 				int arrlen = array.length();
-				String item_name, item_id, item_des,item_grp, item_rate;
+				String item_name, item_id, item_des,item_grp, item_rate, item_image;
 				for(int i=0;i<arrlen;i++)
 				{
 					
@@ -153,13 +171,13 @@ public class MenuFragment extends Fragment {
 					item_des = obj.getString("des");
 					item_grp = obj.getString("group_id");
 					item_rate = obj.getString("rate");
+					item_image = obj.getString("image_name");
 					Log.d("group", item_grp);
-					String strings = item_id+","+item_name+","+item_des+","+item_grp+","+item_rate;
-					String[] input = strings.split(",");
+					String strings = item_id+">"+item_name+">"+item_des+">"+item_grp+">"+item_rate+">"+item_image;
+					String[] input = strings.split(">");
 					if(item_grp.equals("1")){
 						drinks.add(input);
 						drinks_name.add(item_name);
-						
 					}else if(item_grp.equals("2")){
 						starters.add(input);
 						starters_name.add(item_name);
@@ -209,7 +227,7 @@ public class MenuFragment extends Fragment {
 					//show();
 					//id, name, desc, grp
 					String[] retVal = null;
-					String sel_name = null, sel_des = null, sel_id=null, sel_rate = null;
+					String sel_name = null, sel_des = null, sel_id=null, sel_rate = null, sel_image = null;
 					if(arg2 == 0){
 						retVal = drinks.get(arg3);		
 					}else if(arg2 == 1){
@@ -228,12 +246,45 @@ public class MenuFragment extends Fragment {
 					sel_des = retVal[2];
 					sel_id = retVal[0];
 					sel_rate = retVal[4];
+					sel_image = retVal[5];
 //					Toast.makeText(getActivity(), sel_name+", "+sel_des+", "+sel_id, Toast.LENGTH_SHORT).show();
-					show(sel_name, sel_des, sel_id, sel_rate);
+					show(sel_name, sel_des, sel_id, sel_rate, sel_image);
 					return false;
 				}
 				
 			});	
+		}
+		
+	}
+	private class GetImage extends AsyncTask<String, Void, Boolean>{
+
+		@Override
+		protected Boolean doInBackground(String... arg0) {
+			// TODO Auto-generated method stub
+			
+			URL url = null;
+			try {
+				url = new URL(image_url);
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+			pb.setVisibility(View.GONE);
+			img.setVisibility(View.VISIBLE);
+			img.setImageBitmap(bmp);
 		}
 		
 	}

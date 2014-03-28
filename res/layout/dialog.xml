@@ -8,12 +8,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minWidth="100dp"
         android:orientation="vertical" >
 	 <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minWidth="100dp"
         android:orientation="horizontal" >
         <TextView
             android:id="@+id/itemName"
@@ -35,13 +33,23 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:text="Butter chicken or murgh makhani is a classic Indian recipe. A mild curry in which marinaded chicken tikkas are cooked in butter with a makhani sauce" />
+		<ImageView android:id="@+id/image"
+	        android:layout_height="150dp"
+	        android:layout_width="match_parent"
+	        android:layout_margin="5dp"
+	        android:scaleType="centerInside"/>
+
+		<ProgressBar
+		    android:id="@+id/progressBar1"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content" />
 
         <NumberPicker
             android:id="@+id/numberPicker1"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="120dp"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="1" />
+            />
 
         <LinearLayout
             android:layout_width="match_parent"

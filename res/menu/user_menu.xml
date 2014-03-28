@@ -9,4 +9,7 @@
           android:title="Request bill"
           android:icon="@drawable/ic_menu_mark"
           android:showAsAction="ifRoom" />
+    <item android:id="@+id/logout"
+          android:title="Logout"
+          android:showAsAction="never" />
 </menu>

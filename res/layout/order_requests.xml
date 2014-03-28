@@ -3,13 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:background="#E4EEF0">
+    android:background="#AFD3DB"
+    android:textColor="#FFFFFF" >
 
     <ListView
         android:id="@+id/orders_approval"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-         android:background="#AFD3DB" >
+        android:textColor="#FFFFFF"  
+        android:textAppearance="?android:attr/textAppearanceLarge" 
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:background="#217082">
     </ListView>
 
 </LinearLayout>

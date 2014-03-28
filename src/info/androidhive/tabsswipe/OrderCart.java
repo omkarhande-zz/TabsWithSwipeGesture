@@ -1,6 +1,8 @@
 package info.androidhive.tabsswipe;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -27,6 +29,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,18 +38,20 @@ public class OrderCart extends Fragment {
 	TextView tv;
 	int cust_id,pair_id, grand_total;
 	ArrayAdapter<String> mAdapter;
+	SimpleAdapter map_adapter,map_newadapter;
 	ArrayList<String> orderItems, itemId, itemTotal;
+	ArrayList<HashMap<String,Object>> map_newlist;
 	Button b;
 	ImageButton ib;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-		
+		map_newlist = new ArrayList<HashMap<String,Object>>();
 		grand_total = 0;
 		cust_id = Integer.valueOf(prefs.getString("id", ""));
 		pair_id = Integer.valueOf(prefs.getString("pair_id", ""));
 		View rootView = inflater.inflate(R.layout.fragment_cart, container, false);
-		tv = (TextView)rootView.findViewById(R.id.total);
+		tv = (TextView)rootView.findViewById(R.id.totalamout);
 		lv = (ListView)rootView.findViewById(R.id.cartList);
 		b = (Button)rootView.findViewById(R.id.placeOrder);
 		ib = (ImageButton)rootView.findViewById(R.id.refreshCart);
@@ -91,7 +96,7 @@ public class OrderCart extends Fragment {
 		String response;
 		JSONArray array;
 		JSONObject obj;
-		String name, id, total;
+		String name, id, total, quant;
 		@Override
 		protected Boolean doInBackground(String... arg0) {
 			// TODO Auto-generated method stub
@@ -115,15 +120,19 @@ public class OrderCart extends Fragment {
 				orderItems = new ArrayList<String>();
 				itemId = new ArrayList<String>();
 				itemTotal = new ArrayList<String>();
+				HashMap<String,Object> tmp_newmap;
 				for(int i=0;i<arrlen;i++)
 				{	
 					obj = array.getJSONObject(i);
 					name = obj.getString("name");
 					id = obj.getString("id");
 					total = obj.getString("total");
+					quant = obj.getString("quant");
 					
-					
-					
+					tmp_newmap = new HashMap<String,Object>();
+					tmp_newmap.put("name",quant+" "+name);
+					tmp_newmap.put("rate", total);
+					map_newlist.add(tmp_newmap);
 					itemId.add(id);
 					orderItems.add(name+" - "+total);
 					itemTotal.add(total);
@@ -148,32 +157,39 @@ public class OrderCart extends Fragment {
 			for (String s : itemTotal){
 				grand_total += Integer.valueOf(s);
 			}
-			 tv.setText("Total   -   "+String.valueOf(grand_total));
-			mAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,
-	                android.R.id.text1,orderItems);
+			 tv.setText("Rs. "+String.valueOf(grand_total));
+			 map_newadapter = new SimpleAdapter(getActivity(),map_newlist,R.layout.cart_row,
+			    		new String[]{"name","rate"}, 
+			    		new int[]{R.id.itemName,R.id.itemPrice}) ;
+				lv.setAdapter(map_newadapter);
 			
-         lv.setAdapter(mAdapter);
+         lv.setAdapter(map_newadapter);
          SwipeDismissListViewTouchListener touchListener =
                  new SwipeDismissListViewTouchListener(
                          lv,
                          new SwipeDismissListViewTouchListener.OnDismissCallback() {
                              @Override
                              public void onDismiss(ListView listView, final int[] reverseSortedPositions) {
+                            	 int index;
+                            	 Log.d("array", String.valueOf(reverseSortedPositions[0]));
+                            	 Log.d("orderItems", orderItems.get(reverseSortedPositions[0]));
+                            	 index = reverseSortedPositions[0];
                             	 new AlertDialog.Builder(getActivity()).setTitle("Warning")
                             	 .setMessage("Are you sure you want to remove this item?")
                             	 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
+                            		 
                             	     public void onClick(DialogInterface dialog, int whichButton) {
-                            	    	 String item = orderItems.get(orderItems.indexOf(lv.getItemAtPosition(reverseSortedPositions[0])));
-                            	    	 int deduct = Integer.valueOf(itemTotal.get(orderItems.indexOf(lv.getItemAtPosition(reverseSortedPositions[0]))));
+//                            	    	 Log.d("array-2", String.valueOf(reverseSortedPositions[0]));                           	    
+                            	    	 int index = reverseSortedPositions[0];
+                            	    	 int deduct = Integer.valueOf(itemTotal.get(index));
 //                            	    	 Toast.makeText(getActivity(),orderItems.get(reverseSortedPositions[0])+" Item dismissed",Toast.LENGTH_SHORT).show();
                             	    	 DeleteFromCart delete = new DeleteFromCart();
                             	    	 String rsp;
-                            	    	 rsp = delete.deleteItem(Integer.valueOf(itemId.get(orderItems.indexOf(lv.getItemAtPosition(reverseSortedPositions[0])))));
+                            	    	 rsp = delete.deleteItem(Integer.valueOf(itemId.get(index)));
                             	    	 
                             	    	 if(rsp.equals("Item deleted")){
                             	    		 grand_total -= deduct;
-                            	    		 tv.setText("Total   -   "+String.valueOf(grand_total));
+                            	    		 tv.setText("Rs. "+String.valueOf(grand_total));
 	                            	    	 for (int position : reverseSortedPositions) {
 	                                             mAdapter.remove(mAdapter.getItem(position));
 	                                         }

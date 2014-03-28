@@ -117,7 +117,7 @@ public class UpdateList extends Fragment {
 					pair_id.add(item_pair);
 					tmp_newmap.put("chamber", item_action);
 					if(item_action.equals("Update")){
-						tmp_newmap.put("image",android.R.drawable.ic_input_add);
+						tmp_newmap.put("image",android.R.drawable.ic_menu_add);
 					}else{
 						tmp_newmap.put("image",android.R.drawable.ic_menu_delete);
 					}

@@ -1,7 +1,11 @@
 package info.androidhive.tabsswipe;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -14,6 +18,8 @@ import org.json.JSONObject;
 
 import android.app.Dialog;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -27,8 +33,10 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.NumberPicker;
+import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,15 +45,17 @@ public class SpecialsFragment extends Fragment {
 	ArrayList<String> name;
 	ArrayList<String> id;
 	ArrayList<String> desc;
-	ArrayList<String> rate;
-	
-	String did, dname, response;
+	ArrayList<String> rate, image_name;
+	Bitmap bmp;
+	String did, dname, response, image_url;
 	ArrayAdapter<String> adapter,adap_autocomplete;
 	SimpleAdapter map_adapter,map_newadapter;
 	AutoCompleteTextView atv;
 	ListView lv;
 	ArrayList<HashMap<String,String>> map_list;
 	ArrayList<HashMap<String,Object>> map_newlist;
+	ImageView img;
+	ProgressBar pb;
 	int cust_id, pair_id;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,13 +79,21 @@ public class SpecialsFragment extends Fragment {
 		final Dialog d = new Dialog(this.getActivity());
         d.setTitle("Add Item");
         d.setContentView(R.layout.dialog);
+        String img_name=null;
         
         Button b1 = (Button) d.findViewById(R.id.button1);
         Button b2 = (Button) d.findViewById(R.id.button2);
         TextView tvName = (TextView)d.findViewById(R.id.itemName);
         TextView tvDesc = (TextView)d.findViewById(R.id.itemDesc);
         TextView tvRate = (TextView)d.findViewById(R.id.itemRate);
-//        Toast.makeText(getActivity(), desc.get(pos), Toast.LENGTH_LONG).show();
+        img = (ImageView)d.findViewById(R.id.image);
+        img.setVisibility(View.GONE);
+        pb = (ProgressBar)d.findViewById(R.id.progressBar1);
+        img_name = image_name.get(pos);
+        image_url = "http://192.168.144.1/order/images/"+img_name;
+        GetImage img_task = new GetImage();
+        
+        
         tvName.setText(name.get(pos));
         tvDesc.setText(desc.get(pos));
         tvRate.setText("Rs. "+rate.get(pos)+"  ");
@@ -107,13 +125,14 @@ public class SpecialsFragment extends Fragment {
 			}
 		});
         d.show();
+        img_task.execute();
     }
 	
 	private class GetSpecials extends AsyncTask<String, Void, Boolean>{
 
 		JSONArray array;
 		JSONObject obj;
-		String item_name, item_id, item_des, item_rate;
+		String item_name, item_id, item_des, item_rate, item_image;
 		
 		@Override
 		protected Boolean doInBackground(String... params) {
@@ -139,6 +158,7 @@ public class SpecialsFragment extends Fragment {
 				desc = new ArrayList<String>();
 				name = new ArrayList<String>();
 				rate = new ArrayList<String>();
+				image_name = new ArrayList<String>();
 				for(int i=0;i<arrlen;i++)
 				{
 					
@@ -147,6 +167,7 @@ public class SpecialsFragment extends Fragment {
 					item_id = obj.getString("id");
 					item_des = obj.getString("des");
 					item_rate = obj.getString("rate");
+					item_image = obj.getString("image_name");
 					
 					tmp_newmap = new HashMap<String,Object>();
 					tmp_newmap.put("name", item_name);
@@ -155,6 +176,7 @@ public class SpecialsFragment extends Fragment {
 					desc.add(item_des);
 					name.add(item_name);
 					rate.add(item_rate);
+					image_name.add(item_image);
 					tmp_newmap.put("chamber", item_des);
 					tmp_newmap.put("image",R.drawable.chicken );
 					map_newlist.add(tmp_newmap);
@@ -185,6 +207,38 @@ public class SpecialsFragment extends Fragment {
 					show(arg2);
 				}			
 			});
+		}
+		
+	}
+	public class GetImage extends AsyncTask<String, Void, Boolean>{
+
+		@Override
+		protected Boolean doInBackground(String... arg0) {
+			// TODO Auto-generated method stub
+			
+			URL url = null;
+			try {
+				url = new URL(image_url);
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+			pb.setVisibility(View.GONE);
+			img.setVisibility(View.VISIBLE);
+			img.setImageBitmap(bmp);
 		}
 		
 	}

@@ -3,13 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:background="#E4EEF0">
+    android:background="#AFD3DB">
 
     <ListView
         android:id="@+id/updateList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
-        android:background="#AFD3DB">
+        android:background="#217082"
+        android:textColor="#FFFFFF"  
+       >
     </ListView>
 
 </LinearLayout>

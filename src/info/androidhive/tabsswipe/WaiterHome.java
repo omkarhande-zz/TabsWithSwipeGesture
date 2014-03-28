@@ -41,6 +41,14 @@ public class WaiterHome extends FragmentActivity implements ActionBar.TabListene
             return true;
 		}else if (some_id == R.id.action_settings){
 			return true;
+		}else if (some_id == R.id.logout){
+			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		    SharedPreferences.Editor editor = prefs.edit();
+		    editor.clear();
+		    editor.commit();
+		    Intent i = new Intent(WaiterHome.this,LoginActivity.class);
+		    startActivity(i);
+			return true;
 		}else{
 			return super.onOptionsItemSelected(item);
 		}
