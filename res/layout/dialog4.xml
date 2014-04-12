@@ -1,0 +1,67 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <ListView
+        android:id="@+id/order_details"
+        android:layout_width="match_parent"
+        android:layout_height="230dp" >
+
+    </ListView>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/totaltext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Amount"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF"  
+            android:padding="10dp"
+        	android:textStyle="bold"
+        	android:background="#217082" 
+        	 android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/totalamout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rs. 500"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF"  
+            android:padding="10dp"
+        	android:textStyle="bold"
+        	android:background="#217082" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" 
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/approveOrder"
+            style="@style/btnStyleGenoa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/custom_btn_genoa"
+            android:text="Approve"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/cancelOrder"
+            style="@style/btnStyleGenoa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/custom_btn_genoa"
+            android:text="Cancel"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+</LinearLayout>

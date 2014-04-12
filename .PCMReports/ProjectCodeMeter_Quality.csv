@@ -1,0 +1,41 @@
+File,Total Time,Coding %,Debugging %,Testing %,FC% Flow Complexity,OV% Object Vocabulary,OC% Object Conjuration,AI% Arithmetic Intricacy,DT% Data Transfer,ID% Inline Data,CS% Code Structure,CM% Comments,CCR Code to Comment Ratio,ECF Essential Comment Factor,CSM Code Structure Modularity,LD Logic Density,SDE Source Divergence Entropy,IDF Information Diversity Factor,OCF Object Convolution Factor,LLOC Logical Lines of Code,Multi Line Comments,Single Line Comments,High Quality Comments,Strings,Numeric Constants,Code Nature,Quality Notes Count,Quality Notes Detail,
+C:\Users\hande\Downloads\TabsWithSwipeGesture\gen\com\google\android\gms\R.java,31,52,29,20,0,55,33,0,6,2,4,0,0,4,41,90,17,387,38,120,1,0,1,0,124,Normal,1,* Needs more comments. 
+C:\Users\hande\Downloads\TabsWithSwipeGesture\gen\info\androidhive\tabsswipe\BuildConfig.java,1,55,27,18,0,73,15,0,1,0,10,1,25,50,136,25,6,114,20,3,1,0,1,0,0,Normal,0,
+C:\Users\hande\Downloads\TabsWithSwipeGesture\gen\info\androidhive\tabsswipe\Manifest.java,1,55,27,18,0,69,17,0,1,1,11,2,20,33,208,20,5,137,22,4,1,0,1,1,0,Normal,1,* Code structure may be too fragmented. 
+C:\Users\hande\Downloads\TabsWithSwipeGesture\gen\info\androidhive\tabsswipe\R.java,70,54,28,19,0,52,33,0,5,2,3,4,25,170,26,93,16,401,39,265,68,0,68,0,265,Normal,0,
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\AboutUs.java,3,54,28,18,3,83,7,0,2,0,6,0,0,0,189,16,26,50,16,5,0,0,0,0,0,Normal,1,* Code structure may be too fragmented. 
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\adapter\TabsPagerAdapter.java,4,47,33,20,23,56,9,0,4,1,7,0,26,66,174,6,37,95,12,14,0,4,4,0,6,Normal,0,
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\adapter\TabsPagerAdapterWaiter.java,4,48,33,20,21,57,9,0,4,1,8,0,30,66,200,7,33,94,13,12,0,4,4,0,4,Normal,0,
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\AddToCart.java,16,49,31,20,21,51,13,3,5,0,6,0,10,27,154,60,43,154,20,45,0,5,5,13,2,Normal,1,* Needs more comments. 
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\AdminActivity.java,18,50,30,20,15,54,15,2,8,0,6,0,19,44,161,42,39,167,29,41,0,8,8,4,5,Normal,1,* Needs more comments. 
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\ApproveOrder.java,8,50,30,20,15,65,9,0,4,0,6,0,13,33,165,43,32,87,15,22,0,3,3,2,0,Normal,1,* Needs more comments. 
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\ApproveUpdates.java,9,51,30,20,13,64,12,0,5,0,6,0,14,40,155,42,34,115,18,27,0,4,4,3,0,Normal,1,* Needs more comments. 
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\AskForBill.java,15,48,31,21,24,52,12,1,6,0,6,0,8,23,146,55,42,143,18,44,0,4,4,9,2,Normal,1,* Needs more comments. 
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\DeleteFromCart.java,13,48,31,21,23,53,11,1,5,0,7,0,12,31,167,48,38,133,17,38,0,5,5,4,1,Normal,1,* Needs more comments. 
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\ExpandableListAdapter.java,17,48,32,20,17,50,20,1,5,0,7,0,4,11,175,30,35,255,37,42,0,2,2,0,0,Normal,1,* Needs more comments. 
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\FeedbackFragment.java,17,50,30,20,12,63,11,0,6,0,7,0,13,35,184,32,40,113,21,42,0,6,6,8,0,Normal,1,* Needs more comments. 
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\FileCache.java,8,46,33,21,30,47,11,0,6,0,5,0,6,14,147,56,43,141,25,15,0,1,1,1,0,Normal,0,
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\GcmBroadcastReceiver.java,3,54,27,18,0,81,8,0,5,0,6,1,28,66,167,14,31,59,18,6,0,2,2,0,0,Normal,0,
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\GcmIntentService.java,19,50,30,20,16,57,11,1,6,0,6,1,42,111,167,57,41,126,22,44,1,21,19,13,4,Normal,0,
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\ImageLoader.java,32,46,33,21,28,43,16,1,6,0,6,0,8,25,125,56,43,230,24,94,0,8,8,0,10,Normal,1,* Needs more comments. 
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\LoginActivity.java,48,48,31,21,20,47,17,1,7,1,7,1,25,77,132,50,43,236,23,162,5,40,41,41,7,Normal,0,
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\MainActivity.java,24,50,30,20,14,60,14,0,6,0,6,0,18,47,160,35,41,142,25,59,1,11,11,15,1,Normal,1,* Needs more comments. 
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\MemoryCache.java,5,46,33,20,26,45,15,3,5,0,6,0,0,0,176,25,42,200,31,11,0,0,0,0,0,Normal,0,
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\MenuFragment.java,58,47,32,21,19,44,19,1,10,0,6,0,8,31,111,55,45,275,28,179,0,17,16,38,21,Normal,1,* Needs more comments. 
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\MyExpListAdapter.java,7,49,32,20,12,55,20,0,3,0,9,1,43,76,240,0,31,217,27,22,0,10,10,0,4,Normal,1,* Code structure may be too fragmented. 
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\NotifyGCM.java,8,52,29,20,6,65,16,0,6,0,6,0,11,37,125,38,38,156,24,25,0,3,3,5,0,Normal,1,* Needs more comments. 
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\OrderCart.java,41,50,30,20,10,56,18,1,9,0,6,0,11,38,109,46,43,199,26,122,0,14,14,28,8,Normal,1,* Needs more comments. 
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\OrderList.java,23,50,30,20,14,60,15,0,6,0,5,0,9,33,100,46,42,153,23,64,0,6,6,12,1,Normal,1,* Needs more comments. 
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\PlaceOrder.java,12,49,31,20,22,54,12,1,5,0,7,0,8,20,165,50,38,135,18,35,0,3,3,4,1,Normal,1,* Needs more comments. 
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\SendForBilling.java,6,52,29,19,8,69,11,0,4,0,7,0,10,25,170,42,32,97,17,18,0,2,2,3,0,Normal,0,
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\SpecialsFragment.java,45,50,30,20,9,56,19,2,7,0,6,0,7,28,104,43,39,217,27,141,0,12,11,24,3,Normal,1,* Needs more comments. 
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\SwipeDismissListViewTouchListener.java,53,47,32,21,26,41,16,3,7,0,6,1,15,43,140,60,44,240,24,151,6,17,23,0,25,Normal,1,* Needs more comments. 
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\SwipeDismissTouchListener.java,33,47,32,20,24,45,15,2,6,0,6,1,17,56,133,52,44,211,22,100,4,14,18,0,19,Normal,1,* Needs more comments. 
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\UnbilledFragment.java,29,50,30,20,11,59,16,0,7,0,6,0,13,45,112,44,41,174,26,82,0,11,11,12,2,Normal,1,* Needs more comments. 
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\UpdateList.java,38,50,30,20,11,54,19,1,8,0,7,0,10,36,117,42,43,224,26,122,0,13,13,28,2,Normal,1,* Needs more comments. 
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\Utils.java,5,45,33,21,34,43,8,2,6,0,6,0,0,0,201,53,45,111,15,12,0,0,0,0,4,Normal,0,
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\ViewOrder.java,21,51,29,20,10,63,14,1,6,0,6,0,8,29,107,47,39,139,21,60,0,5,5,16,2,Normal,1,* Needs more comments. 
+C:\Users\hande\Downloads\TabsWithSwipeGesture\src\info\androidhive\tabsswipe\WaiterHome.java,23,49,31,20,15,59,14,0,6,0,6,0,14,39,154,32,39,144,22,61,1,9,9,10,0,Normal,1,* Needs more comments. 
+
+Entire Project Totals,786,49,31,20,15,53,18,1,6,1,6,1,14,48,118,55,35,214,27,2309,89,264,342,294,523,Normal,26,
+

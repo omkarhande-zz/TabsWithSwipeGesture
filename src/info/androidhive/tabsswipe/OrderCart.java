@@ -190,11 +190,17 @@ public class OrderCart extends Fragment {
                             	    	 if(rsp.equals("Item deleted")){
                             	    		 grand_total -= deduct;
                             	    		 tv.setText("Rs. "+String.valueOf(grand_total));
-	                            	    	 for (int position : reverseSortedPositions) {
-	                                             mAdapter.remove(mAdapter.getItem(position));
-	                                         }
+//	                            	    	 for (int position : reverseSortedPositions) {
+//	                                             mAdapter.remove(mAdapter.getItem(position));
+//	                                         }
 	                            	    	 
-	                                         mAdapter.notifyDataSetChanged();
+//	                                         mAdapter.notifyDataSetChanged();
+                            	    		 Fragment frg = null;
+                            					frg = getFragmentManager().findFragmentByTag(getTag());
+                            					final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                            					ft.detach(frg);
+                            					ft.attach(frg);
+                            					ft.commit();
                             	    	 }else{
                             	    		 NotifyGCM notify_waiter = new NotifyGCM();
                             			     notify_waiter.notify(1,"You have a new deletion request","Update Approval", pair_id);

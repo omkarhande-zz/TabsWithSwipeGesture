@@ -1,6 +1,7 @@
 package info.androidhive.tabsswipe;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -60,7 +61,7 @@ public class ViewOrder extends Activity{
 		String response;
 		JSONArray array;
 		JSONObject obj;
-		String name, total;
+		String name, total,quant;
 		@Override
 		protected Boolean doInBackground(String... arg0) {
 			// TODO Auto-generated method stub
@@ -82,11 +83,16 @@ public class ViewOrder extends Activity{
 				Log.d("Array Length", Integer.toString(arrlen));
 				
 				orderItems = new ArrayList<String>();
+				
 				for(int i=0;i<arrlen;i++)
 				{	
 					obj = array.getJSONObject(i);
 					name = obj.getString("name");
 					total = obj.getString("total");
+					quant = obj.getString("quant");
+					HashMap<String, Object> tmp_newmap = new HashMap<String,Object>();
+					tmp_newmap.put("name",quant+" "+name);
+					tmp_newmap.put("rate", total);
 					
 					
 					

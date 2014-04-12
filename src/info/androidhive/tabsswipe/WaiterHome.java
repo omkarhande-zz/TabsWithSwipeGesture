@@ -35,7 +35,7 @@ public class WaiterHome extends FragmentActivity implements ActionBar.TabListene
 	    // Handle presses on the action bar items
 		int some_id = item.getItemId();
 		if(some_id == R.id.action_refresh){
-			Intent i = getIntent();
+			Intent i = new Intent(WaiterHome.this,WaiterHome.class);
         	finish();
         	startActivity(i);
             return true;
