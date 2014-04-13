@@ -98,7 +98,7 @@ public class OrderList extends Fragment{
 		View rootView = inflater.inflate(R.layout.order_requests, container, false);
 		lv = (ListView)rootView.findViewById(R.id.orders_approval);
 		i = new Intent(getActivity(),ViewOrder.class);
-		map_newlist = new ArrayList<HashMap<String,Object>>();
+		
 		GetOrders task = new GetOrders();
 		task.execute();
 		return rootView;
@@ -131,6 +131,7 @@ public class OrderList extends Fragment{
 				
 				orderItems = new ArrayList<String>();
 				HashMap<String, Object> tmp_newmap;
+				map_newlist = new ArrayList<HashMap<String,Object>>();
 				for(int i=0;i<arrlen;i++)
 				{	
 					obj = array.getJSONObject(i);

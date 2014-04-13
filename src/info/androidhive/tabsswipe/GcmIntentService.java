@@ -107,6 +107,7 @@ public class GcmIntentService extends IntentService {
         .setContentText(msg.getString("contentText"));
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         mBuilder.setSound(alarmSound);
+        mBuilder.setAutoCancel(true);
 
         mBuilder.setContentIntent(contentIntent);
         Log.d("NUM", String.valueOf(getUnqNum()));
