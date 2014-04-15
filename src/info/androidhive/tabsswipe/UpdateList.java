@@ -38,10 +38,12 @@ public class UpdateList extends Fragment {
 	ArrayList<String> request_id, name, action,quant, id, pair_id;
 	SimpleAdapter map_adapter,map_newadapter;
 	String waiter_id;
+	String server;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		server = getString(R.string.server_global);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 		waiter_id = prefs.getString("waiter_id", "");
 		Toast.makeText(getActivity(), "Waiter ID: "+waiter_id, Toast.LENGTH_LONG).show();
@@ -71,7 +73,7 @@ public class UpdateList extends Fragment {
 			try{
 				HttpClient client = new DefaultHttpClient();  
 				String folder = getString(R.string.server_addr);
-				HttpGet get = new HttpGet("http://192.168.144.1/order/get_requests.php?waiter_id="+waiter_id);
+				HttpGet get = new HttpGet("http://"+server+"/order/get_requests.php?waiter_id="+waiter_id);
 				
 		        HttpResponse responseGet = client.execute(get);  
 		        HttpEntity resEntity = responseGet.getEntity();
@@ -186,11 +188,11 @@ public class UpdateList extends Fragment {
 				// TODO Auto-generated method stub
 //				Code to refresh a fragment !
 				ApproveUpdates app = new ApproveUpdates();
-				app.approve(id);
+				app.approve(id,server);
 				NotifyGCM task  = new NotifyGCM();
 //				int some_id  = Integer.valueOf(waiter_id);
 //				Toast.makeText(getActivity(), waiter_id, Toast.LENGTH_LONG).show();
-				task.notify(2,"Congratulations! Your Update has been approved", "Update approved",pair);
+				task.notify(2,"Congratulations! Your Update has been approved", "Update approved",pair,server);
 				d.dismiss();
 				Fragment frg = null;
 				frg = getFragmentManager().findFragmentByTag(getTag());

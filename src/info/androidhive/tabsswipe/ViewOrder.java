@@ -30,10 +30,12 @@ public class ViewOrder extends Activity{
 	String id, waiter_id, pair_id;
 	ArrayList<String> orderItems;
 	ArrayAdapter<String> adapter;
+	String server;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		server = getString(R.string.server_global);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		id = prefs.getString("id", "");
 		pair_id = prefs.getString("pair_id", "");
@@ -47,9 +49,9 @@ public class ViewOrder extends Activity{
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				ApproveOrder order = new ApproveOrder();
-				order.approve(Integer.valueOf(id));
+				order.approve(Integer.valueOf(id),server);
 				NotifyGCM task  = new NotifyGCM();
-				task.notify(2,"Congratulations! Your order is placed and getting ready!", "Order Placed", Integer.valueOf(pair_id));
+				task.notify(2,"Congratulations! Your order is placed and getting ready!", "Order Placed", Integer.valueOf(pair_id),server);
 				onBackPressed();
 			}
 		});

@@ -224,6 +224,7 @@ int string common_signin_button_text_long 0x7f060013
 int string hello_world 0x7f06001d
 int string location_client_powered_by_google 0x7f06001a
 int string server_addr 0x7f06001e
+int string server_global 0x7f06001f
 int style AppBaseTheme 0x7f090000
 int style AppTheme 0x7f090001
 int style btnStyleArsenic 0x7f090004

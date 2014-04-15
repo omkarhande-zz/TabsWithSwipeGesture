@@ -12,11 +12,12 @@ import android.util.Log;
 public class SendForBilling {
 
 	int order, pair;
-	public void send(int order_id, int pair_id){
+	String server;
+	public void send(int order_id, int pair_id,String addr){
 		String response = null;
 		order = order_id;
 		pair = pair_id;
-		
+		server = addr;
 		BillOrder task = new BillOrder();
 		task.execute();
 		
@@ -30,7 +31,7 @@ public class SendForBilling {
 			try{
 				HttpClient client = new DefaultHttpClient();  
 //				String folder = getString(R.string.server_addr);
-				HttpGet get = new HttpGet("http://192.168.144.1/order/bill_order.php?"+"order_id="+order);
+				HttpGet get = new HttpGet("http://"+server+"/order/bill_order.php?"+"order_id="+order);
 				
 		        HttpResponse responseGet = client.execute(get);  
 			}catch(Exception e){

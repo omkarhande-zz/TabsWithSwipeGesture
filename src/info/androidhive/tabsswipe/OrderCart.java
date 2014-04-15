@@ -43,6 +43,7 @@ public class OrderCart extends Fragment {
 	ArrayList<HashMap<String,Object>> map_newlist;
 	Button b;
 	ImageButton ib;
+	String server;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -55,6 +56,7 @@ public class OrderCart extends Fragment {
 		lv = (ListView)rootView.findViewById(R.id.cartList);
 		b = (Button)rootView.findViewById(R.id.placeOrder);
 		ib = (ImageButton)rootView.findViewById(R.id.refreshCart);
+		server = getString(R.string.server_global);
 //		String[] values = new String[] { "Butter Chicken", "Chicken Hyderabadi Biryani", "Cheese Garlic Naan",
 //                "Malai Kofta", "Tandoori Chicken"};
 		
@@ -68,9 +70,9 @@ public class OrderCart extends Fragment {
 				// TODO Auto-generated method stub
 				PlaceOrder task = new PlaceOrder();
 				String rsp;
-				rsp = task.place(cust_id);
+				rsp = task.place(cust_id,server);
 				NotifyGCM notify_waiter = new NotifyGCM();
-				notify_waiter.notify(1,"New order approval request","Order Approval", pair_id);
+				notify_waiter.notify(1,"New order approval request","Order Approval", pair_id, server);
 				Toast.makeText(getActivity(), rsp, Toast.LENGTH_LONG).show();
 			}
 		});
@@ -104,7 +106,7 @@ public class OrderCart extends Fragment {
 			try{
 				HttpClient client = new DefaultHttpClient();  
 				String folder = getString(R.string.server_addr);
-				HttpGet get = new HttpGet("http://192.168.144.1/order/cart.php/?cust_id="+cust_id);
+				HttpGet get = new HttpGet("http://"+server+"/order/cart.php/?cust_id="+cust_id);
 				
 		        HttpResponse responseGet = client.execute(get);  
 		        HttpEntity resEntity = responseGet.getEntity();
@@ -185,7 +187,7 @@ public class OrderCart extends Fragment {
 //                            	    	 Toast.makeText(getActivity(),orderItems.get(reverseSortedPositions[0])+" Item dismissed",Toast.LENGTH_SHORT).show();
                             	    	 DeleteFromCart delete = new DeleteFromCart();
                             	    	 String rsp;
-                            	    	 rsp = delete.deleteItem(Integer.valueOf(itemId.get(index)));
+                            	    	 rsp = delete.deleteItem(Integer.valueOf(itemId.get(index)), server);
                             	    	 
                             	    	 if(rsp.equals("Item deleted")){
                             	    		 grand_total -= deduct;
@@ -203,7 +205,7 @@ public class OrderCart extends Fragment {
                             					ft.commit();
                             	    	 }else{
                             	    		 NotifyGCM notify_waiter = new NotifyGCM();
-                            			     notify_waiter.notify(1,"You have a new deletion request","Update Approval", pair_id);
+                            			     notify_waiter.notify(1,"You have a new deletion request","Update Approval", pair_id, server);
                             	    	 }
                             	    	 Toast.makeText(getActivity(),rsp,Toast.LENGTH_SHORT).show();
                             	     }})

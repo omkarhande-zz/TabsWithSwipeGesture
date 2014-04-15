@@ -14,8 +14,10 @@ import android.util.Log;
 
 public class ApproveOrder {
 	int order_id;
-	public void approve(int id){
+	String server;
+	public void approve(int id,String addr){
 		order_id = id;
+		server = addr;
 		OrderApproval task = new OrderApproval();
 		task.execute();
 	}
@@ -30,7 +32,7 @@ public class ApproveOrder {
 			try{
 					HttpClient client = new DefaultHttpClient();  
 //					String folder = getString(R.string.server_addr);
-					HttpGet get = new HttpGet("http://192.168.144.1/order/approve_order.php?id="+order_id);
+					HttpGet get = new HttpGet("http://"+server+"/order/approve_order.php?id="+order_id);
 					
 			        HttpResponse responseGet = client.execute(get);  
 			        HttpEntity resEntity = responseGet.getEntity();

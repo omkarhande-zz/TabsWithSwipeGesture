@@ -18,8 +18,9 @@ public class AskForBill {
 	
 	int id_cust, id_pair;
 	String rsp = null;
-	public String ask(int cust_id, int pair_id){
-		
+	String server;
+	public String ask(int cust_id, int pair_id, String addr){
+		server = addr;
 		id_cust = cust_id;
 		id_pair = pair_id;
 		AskBill task = new AskBill();
@@ -40,13 +41,14 @@ public class AskForBill {
 		String response;
 		JSONArray array;
 		JSONObject obj;
+		
 		@Override
 		protected Boolean doInBackground(String... params) {
 			// TODO Auto-generated method stub
 			try{
 				HttpClient client = new DefaultHttpClient();  
 //				String folder = getString(R.string.server_addr);
-				String URL = "http://192.168.144.1/order/bill.php?"+"cust_id="+String.valueOf(id_cust);
+				String URL = "http://"+server+"/order/bill.php?"+"cust_id="+String.valueOf(id_cust);
 				HttpGet get = new HttpGet(URL);
 				Log.d("URL", URL);
 		        HttpResponse responseGet = client.execute(get);  
@@ -68,7 +70,7 @@ public class AskForBill {
 				rsp = response;
 				if(response.equals("Sending bill request")){
 					NotifyGCM taskGCM = new NotifyGCM();
-					taskGCM.notify(1, "New Billing Request", "You have a new bill approval", Integer.valueOf(id_pair));
+					taskGCM.notify(1, "New Billing Request", "You have a new bill approval", Integer.valueOf(id_pair),server);
 				}
 				
 			}catch(Exception e){

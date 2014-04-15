@@ -16,8 +16,9 @@ import android.util.Log;
 
 public class DeleteFromCart {
 	int itemId;
-	String response;
-	public String deleteItem(int id){
+	String response,server;
+	public String deleteItem(int id, String addr){
+		server = addr;
 		itemId=id;
 		Delete task = new Delete();
 		try {
@@ -41,7 +42,7 @@ public class DeleteFromCart {
 			try{
 				HttpClient client = new DefaultHttpClient();  
 //				String folder = getString(R.string.server_addr);
-				HttpGet get = new HttpGet("http://192.168.144.1/order/delete.php/?id="+itemId);
+				HttpGet get = new HttpGet("http://"+server+"/order/delete.php/?id="+itemId);
 				
 		        HttpResponse responseGet = client.execute(get);  
 		        HttpEntity resEntity = responseGet.getEntity();

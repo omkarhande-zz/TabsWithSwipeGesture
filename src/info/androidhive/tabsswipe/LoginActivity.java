@@ -40,6 +40,7 @@ public class LoginActivity extends Activity{
 	String response;
 	JSONArray array;
 	JSONObject obj;
+	String server;
 	int auth;
 	Intent i;
 	GoogleCloudMessaging gcm;
@@ -75,6 +76,7 @@ public class LoginActivity extends Activity{
 		pass = (EditText)findViewById(R.id.pass);
 		auth=0;
 		context = getApplicationContext();
+		server = getString(R.string.server_global);
 
 //         Check device for Play Services APK. If check succeeds, proceed with GCM registration.
         if (checkPlayServices()) {
@@ -91,10 +93,10 @@ public class LoginActivity extends Activity{
     				// TODO Auto-generated method stub
     				if(rb1.isChecked()){
     					i = new Intent(LoginActivity.this,MainActivity.class);
-    					SCRIPT_URL = "http://192.168.144.1/order/login.php?type=user&email=omkarsayajihande@gmail.com&pass=welcome123&gcm_id="+regid;
+    					SCRIPT_URL = "http://"+server+"/order/login.php?type=user&email=omkarsayajihande@gmail.com&pass=welcome123&gcm_id="+regid;
     				}else{
     					i = new Intent(LoginActivity.this,WaiterHome.class);
-    					SCRIPT_URL = "http://192.168.144.1/order/login.php?type=waiter&email=food.delivery.bits@gmail.com&pass=123&gcm_id="+regid;
+    					SCRIPT_URL = "http://"+server+"/order/login.php?type=waiter&email=food.delivery.bits@gmail.com&pass=123&gcm_id="+regid;
     				}
     				Log.d("URL", SCRIPT_URL);
     				GetUserDetails task= new GetUserDetails();
@@ -129,8 +131,8 @@ private class GetUserDetails extends AsyncTask<String,Void,Boolean>{
 				
 //				Toast.makeText(LoginActivity.this, "Hello", Toast.LENGTH_SHORT).show();
 				HttpClient client = new DefaultHttpClient();  
-				String folder = getString(R.string.server_addr);
-				String URL = folder+"login.php?type=user&email=omkarsayajihande@gmail.com&pass=welcome123";
+				String folder = getString(R.string.server_global);
+				String URL = "http://"+server+"login.php?type=user&email=omkarsayajihande@gmail.com&pass=welcome123";
 				Log.d("faculty list","login folder="+URL);
 				
 				HttpGet get = new HttpGet(SCRIPT_URL);
@@ -267,7 +269,7 @@ private class GetUserDetails extends AsyncTask<String,Void,Boolean>{
                     msg = "Device registered, registration ID=" + regid;
                     HttpClient client = new DefaultHttpClient();  
 //    				String folder = getString(R.string.server_addr);
-    				HttpGet get = new HttpGet("http://192.168.144.1/order/reg_gcm.php?"+"reg_id="+regid);
+    				HttpGet get = new HttpGet("http://"+server+"/order/reg_gcm.php?"+"reg_id="+regid);
 //    				onClick(b);
     		        HttpResponse responseGet = client.execute(get);  
 //                    Bundle data = new Bundle();

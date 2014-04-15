@@ -43,6 +43,7 @@ public class OrderList extends Fragment{
 	String orderId = null;
 	String waiter_id;
 	SimpleAdapter map_adapter,map_newadapter;
+	String server;
 	public void show(final int pos)
     {
 
@@ -70,9 +71,9 @@ public class OrderList extends Fragment{
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				ApproveOrder order = new ApproveOrder();
-				order.approve(Integer.valueOf(id.get(pos)));
+				order.approve(Integer.valueOf(id.get(pos)),server);
 				NotifyGCM task  = new NotifyGCM();
-				task.notify(2,"Congratulations! Your order is placed and getting ready!", "Order Placed", Integer.valueOf(pair_id.get(pos)));
+				task.notify(2,"Congratulations! Your order is placed and getting ready!", "Order Placed", Integer.valueOf(pair_id.get(pos)),server);
 				
 				d.dismiss();
 				
@@ -94,6 +95,7 @@ public class OrderList extends Fragment{
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		server = getString(R.string.server_global);
 		waiter_id = prefs.getString("waiter_id", "");
 		View rootView = inflater.inflate(R.layout.order_requests, container, false);
 		lv = (ListView)rootView.findViewById(R.id.orders_approval);
@@ -116,7 +118,7 @@ public class OrderList extends Fragment{
 			try{
 				HttpClient client = new DefaultHttpClient();  
 				String folder = getString(R.string.server_addr);
-				HttpGet get = new HttpGet("http://192.168.144.1/order/view_order.php/?id="+orderId);
+				HttpGet get = new HttpGet("http://"+server+"/order/view_order.php/?id="+orderId);
 				Log.d("URL", "http://192.168.144.1/order/view_order.php/?id="+orderId);
 		        HttpResponse responseGet = client.execute(get);  
 		        HttpEntity resEntity = responseGet.getEntity();
@@ -183,7 +185,7 @@ public class OrderList extends Fragment{
 			try{
 				HttpClient client = new DefaultHttpClient();  
 //				String folder = getString(R.string.server_addr);
-				HttpGet get = new HttpGet("http://192.168.144.1/order/get_orders.php?waiter_id="+waiter_id);
+				HttpGet get = new HttpGet("http://"+server+"/order/get_orders.php?waiter_id="+waiter_id);
 				
 		        HttpResponse responseGet = client.execute(get);  
 		        HttpEntity resEntity = responseGet.getEntity();

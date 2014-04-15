@@ -465,6 +465,7 @@ containing a value of this type.
          */
         public static final int location_client_powered_by_google=0x7f06001a;
         public static final int server_addr=0x7f06001e;
+        public static final int server_global=0x7f06001f;
     }
     public static final class style {
         /** 

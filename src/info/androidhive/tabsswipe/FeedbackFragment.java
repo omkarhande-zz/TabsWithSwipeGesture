@@ -28,10 +28,11 @@ public class FeedbackFragment extends Fragment {
 	EditText content;
 	Button b;
 	int cust_id;
+	String server;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		
+		server = getString(R.string.server_global);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());		
 		cust_id = Integer.valueOf(prefs.getString("id", ""));
 
@@ -74,7 +75,7 @@ public class FeedbackFragment extends Fragment {
 			try{
 				HttpClient client = new DefaultHttpClient();  
 //				String folder = getString(R.string.server_addr);
-				HttpPost post = new HttpPost("http://192.168.144.1/order/add_feedback.php");
+				HttpPost post = new HttpPost("http://"+server+"/order/add_feedback.php");
 				ArrayList<NameValuePair> pairs = new ArrayList<NameValuePair>();
 				pairs.add(new BasicNameValuePair("content", content.getText().toString()));
 				pairs.add(new BasicNameValuePair("cust_id", String.valueOf(cust_id)));

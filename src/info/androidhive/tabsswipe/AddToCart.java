@@ -20,11 +20,12 @@ public class AddToCart {
 	String response;
 	JSONArray array;
 	JSONObject obj;
-	
-	public String addItem(int cust, int item, int q, int pair){
+	String server;
+	public String addItem(int cust, int item, int q, int pair,String addr){
 		cust_id = cust;
 		item_id = item;
 		pair_id = pair;
+		server = addr;
 		quant = q;
 		Log.d("input", String.valueOf(cust_id)+" "+String.valueOf(item_id)+" "+String.valueOf(quant));
 		CheckAndAdd task = new CheckAndAdd();
@@ -47,7 +48,7 @@ public class AddToCart {
 			try{
 				HttpClient client = new DefaultHttpClient();  
 //				String folder = getString(R.string.server_addr);
-				HttpGet get = new HttpGet("http://192.168.144.1/order/add.php?"+"cust_id="+cust_id+"&item_id="+item_id+"&quant="+quant);
+				HttpGet get = new HttpGet("http://"+server+"/order/add.php?"+"cust_id="+cust_id+"&item_id="+item_id+"&quant="+quant);
 				
 		        HttpResponse responseGet = client.execute(get);  
 		        HttpEntity resEntity = responseGet.getEntity();
@@ -67,7 +68,7 @@ public class AddToCart {
 				}
 				if(response.equals("Request sent for approval")){
 					NotifyGCM taskGCM = new NotifyGCM();
-					taskGCM.notify(1, "New Update Request", "You have a new update request to approve", Integer.valueOf(pair_id));
+					taskGCM.notify(1, "New Update Request", "You have a new update request to approve", Integer.valueOf(pair_id), server);
 				}
 				
 			}catch(Exception e){

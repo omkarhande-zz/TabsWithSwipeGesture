@@ -49,10 +49,12 @@ public class MenuFragment extends Fragment {
 	Bitmap bmp;
 	ImageView img;
 	ProgressBar pb;
+	String server;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
+		server = getString(R.string.server_global);
 		View rootView = inflater.inflate(R.layout.fragment_games, container, false);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 		cust_name = prefs.getString("name", "");
@@ -98,7 +100,7 @@ public class MenuFragment extends Fragment {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				AddToCart add = new AddToCart();
-				String rsp = add.addItem(Integer.valueOf(cust_id), Integer.valueOf(id), np.getValue(), Integer.valueOf(pair_id));
+				String rsp = add.addItem(Integer.valueOf(cust_id), Integer.valueOf(id), np.getValue(), Integer.valueOf(pair_id),server);
 
 				
 				Toast.makeText(getActivity(),rsp , Toast.LENGTH_LONG).show();
@@ -107,7 +109,8 @@ public class MenuFragment extends Fragment {
 			}
 		});
         d.show();
-        image_url = "http://192.168.144.1/order/images/"+image_name;
+        image_url = "http://"+server+"/order/images/"+image_name;
+        Log.d("img url", image_url);
         GetImage img_task = new GetImage();
         img_task.execute();
 //        d.getWindow().setLayout(350, 450);
@@ -149,7 +152,7 @@ public class MenuFragment extends Fragment {
 			try{
 				HttpClient client = new DefaultHttpClient();  
 				String folder = getString(R.string.server_addr);
-				HttpGet get = new HttpGet("http://192.168.144.1/order/menu.php");
+				HttpGet get = new HttpGet("http://"+server+"/order/menu.php");
 				
 		        HttpResponse responseGet = client.execute(get);  
 		        HttpEntity resEntity = responseGet.getEntity();

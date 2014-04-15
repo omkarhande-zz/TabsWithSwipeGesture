@@ -15,12 +15,13 @@ import android.os.AsyncTask;
 public class NotifyGCM {
 	int msg_type, pair_id;
 	String msg_title, msg_content;
-	
-	public void notify(int type, String msg, String title,int id){
+	String server;
+	public void notify(int type, String msg, String title,int id, String addr){
 		msg_type = type;
 		pair_id = id;
 		msg_title = title;
 		msg_content = msg;
+		server = addr;
 		SendNotification task = new SendNotification();
 		task.execute();
 	}
@@ -34,7 +35,7 @@ public class NotifyGCM {
 				HttpClient client = new DefaultHttpClient();  
 //				String folder = getString(R.string.server_addr);
 //				HttpGet get = new HttpGet("http://192.168.144.1/order/notify.php?"+"user_id="+String.valueOf(user_id)+"&msg="+msg_content+"&title="+msg_title+"&type="+String.valueOf(msg_type));
-				HttpPost post = new HttpPost("http://192.168.144.1/order/notify.php");
+				HttpPost post = new HttpPost("http://"+server+"/order/notify.php");
 				ArrayList<NameValuePair> pairs = new ArrayList<NameValuePair>();
 				pairs.add(new BasicNameValuePair("msg", msg_content));
 				pairs.add(new BasicNameValuePair("title", msg_title));

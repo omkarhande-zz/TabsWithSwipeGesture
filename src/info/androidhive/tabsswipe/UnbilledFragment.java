@@ -35,6 +35,7 @@ public class UnbilledFragment extends Fragment{
 	ListView lv;
 	ArrayList<String> name, id, pair_id;
 	ArrayAdapter<String> adapter;
+	String server;
 	
 	public void show(final int id_order, final int id_pair)
     {
@@ -62,9 +63,9 @@ public class UnbilledFragment extends Fragment{
 				NotifyGCM task  = new NotifyGCM();
 //				int some_id  = Integer.valueOf(waiter_id);
 //				Toast.makeText(getActivity(), waiter_id, Toast.LENGTH_LONG).show();
-				task.notify(2,"Your bill is on the way", "Bill Processing",id_pair);
+				task.notify(2,"Your bill is on the way", "Bill Processing",id_pair,server);
 				SendForBilling sendForBilling = new SendForBilling();
-				sendForBilling.send(id_order, id_pair);
+				sendForBilling.send(id_order, id_pair,server);
 				d.dismiss();
 				Fragment frg = null;
 				frg = getFragmentManager().findFragmentByTag(getTag());
@@ -87,6 +88,7 @@ public class UnbilledFragment extends Fragment{
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 //		return super.onCreateView(inflater, container, savedInstanceState);
+		server = getString(R.string.server_global);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 		waiter_id = prefs.getString("waiter_id", "");
 		View rootView = inflater.inflate(R.layout.unbilled, container, false);
@@ -110,7 +112,7 @@ public class UnbilledFragment extends Fragment{
 			try{
 				HttpClient client = new DefaultHttpClient();  
 //				String folder = getString(R.string.server_addr);
-				HttpGet get = new HttpGet("http://192.168.144.1/order/get_unbilled.php?waiter_id="+waiter_id);
+				HttpGet get = new HttpGet("http://"+server+"/order/get_unbilled.php?waiter_id="+waiter_id);
 				
 		        HttpResponse responseGet = client.execute(get);  
 		        HttpEntity resEntity = responseGet.getEntity();

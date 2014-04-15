@@ -18,8 +18,10 @@ import android.util.Log;
 public class ApproveUpdates {
 	
 	int req_id;
-	public void approve(int id){
+	String server;
+	public void approve(int id, String addr){
 		req_id = id;
+		server = addr;
 		Approve task = new Approve();
 		task.execute();
 	}
@@ -35,7 +37,7 @@ public class ApproveUpdates {
 			try{
 					HttpClient client = new DefaultHttpClient();  
 //					String folder = getString(R.string.server_addr);
-					HttpGet get = new HttpGet("http://192.168.144.1/order/approve_update.php?id="+req_id);
+					HttpGet get = new HttpGet("http://"+server+"/order/approve_update.php?id="+req_id);
 					
 			        HttpResponse responseGet = client.execute(get);  
 			        HttpEntity resEntity = responseGet.getEntity();

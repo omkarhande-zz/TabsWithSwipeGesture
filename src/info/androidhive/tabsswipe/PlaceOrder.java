@@ -15,9 +15,10 @@ import android.util.Log;
 public class PlaceOrder {
 
 	int cust_id;
-	String response;
-	public String place (int id){
+	String response,server;
+	public String place (int id,String addr){
 		cust_id = id;
+		server = addr;
 		ChangeOrderStatus task = new ChangeOrderStatus();
 		try{
 			task.execute().get();
@@ -37,7 +38,7 @@ public class PlaceOrder {
 			try{
 				HttpClient client = new DefaultHttpClient();  
 //				String folder = getString(R.string.server_addr);
-				HttpGet get = new HttpGet("http://192.168.144.1/order/place.php?cust_id="+cust_id);
+				HttpGet get = new HttpGet("http://"+server+"/order/place.php?cust_id="+cust_id);
 				
 		        HttpResponse responseGet = client.execute(get);  
 		        HttpEntity resEntity = responseGet.getEntity();

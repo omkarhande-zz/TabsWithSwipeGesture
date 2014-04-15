@@ -57,10 +57,11 @@ public class SpecialsFragment extends Fragment {
 	ImageView img;
 	ProgressBar pb;
 	int cust_id, pair_id;
+	String server;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		
+		server = getString(R.string.server_global);
 		View rootView = inflater.inflate(R.layout.specials_list_layout, container, false);
 		lv = (ListView)rootView.findViewById(R.id.listViewFaculty);
 		map_newlist = new ArrayList<HashMap<String,Object>>();
@@ -90,7 +91,8 @@ public class SpecialsFragment extends Fragment {
         img.setVisibility(View.GONE);
         pb = (ProgressBar)d.findViewById(R.id.progressBar1);
         img_name = image_name.get(pos);
-        image_url = "http://192.168.144.1/order/images/"+img_name;
+        image_url = "http://"+server+"/order/images/"+img_name;
+        Log.d("img url", image_url);
         GetImage img_task = new GetImage();
         
         
@@ -117,7 +119,7 @@ public class SpecialsFragment extends Fragment {
 				// TODO Auto-generated method stub
 				AddToCart add = new AddToCart();
 				String str = id.get(pos);
-				String rsp = add.addItem(cust_id, Integer.valueOf(str), np.getValue(), pair_id);
+				String rsp = add.addItem(cust_id, Integer.valueOf(str), np.getValue(), pair_id,server);
 				d.dismiss();
 				String msg = String.valueOf(np.getValue());
 				msg = msg+" "+name.get(pos)+" added to cart!";
@@ -140,7 +142,7 @@ public class SpecialsFragment extends Fragment {
 			try{
 				HttpClient client = new DefaultHttpClient();  
 				String folder = getString(R.string.server_addr);
-				HttpGet get = new HttpGet("http://192.168.144.1/order/specials.php");
+				HttpGet get = new HttpGet("http://"+server+"/order/specials.php");
 				
 		        HttpResponse responseGet = client.execute(get);  
 		        HttpEntity resEntity = responseGet.getEntity();
