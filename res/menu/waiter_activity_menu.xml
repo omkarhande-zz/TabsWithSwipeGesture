@@ -7,7 +7,7 @@
     <!-- Settings, should always be in the overflow -->
     <item android:id="@+id/action_settings"
           android:title="@string/action_settings"
-          android:showAsAction="ifRoom" />
+          android:showAsAction="never" />
     <item android:id="@+id/logout"
           android:title="Logout"
           android:showAsAction="never" />

@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:ems="10" 
-        android:hint="Email">
+        android:hint="Username">
 
         <requestFocus />
     </EditText>

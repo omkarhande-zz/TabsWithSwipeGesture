@@ -13,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class WaiterHome extends FragmentActivity implements ActionBar.TabListener {
 
@@ -46,8 +47,11 @@ public class WaiterHome extends FragmentActivity implements ActionBar.TabListene
 		    SharedPreferences.Editor editor = prefs.edit();
 		    editor.clear();
 		    editor.commit();
-		    Intent i = new Intent(WaiterHome.this,LoginActivity.class);
+		    Intent i = new Intent(getBaseContext(),LoginActivity.class);
+		    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		    finish();
 		    startActivity(i);
+		    
 			return true;
 		}else{
 			return super.onOptionsItemSelected(item);
@@ -71,7 +75,7 @@ public class WaiterHome extends FragmentActivity implements ActionBar.TabListene
 		viewPager.setAdapter(mAdapter);
 		actionBar.setHomeButtonEnabled(false);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);		
-
+		Toast.makeText(WaiterHome.this, "Welcome "+name+"!", Toast.LENGTH_LONG).show();
 		// Adding Tabs
 		for (String tab_name : tabs) {
 			actionBar.addTab(actionBar.newTab().setText(tab_name)

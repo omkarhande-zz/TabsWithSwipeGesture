@@ -40,7 +40,7 @@ public class LoginActivity extends Activity{
 	String response;
 	JSONArray array;
 	JSONObject obj;
-	String server;
+	String server,profile;
 	int auth;
 	Intent i;
 	GoogleCloudMessaging gcm;
@@ -68,6 +68,24 @@ public class LoginActivity extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		
+	    String status	 = prefs.getString("auth", "");
+		String prof = prefs.getString("profile", "");
+		
+		if(status.equals("1")){
+//			Toast.makeText(LoginActivity.this, "Hey hey"+prof+"yo", Toast.LENGTH_SHORT).show();
+			Log.d("PROFILE",prof);
+			if(prof.equals("user")){
+				i = new Intent(LoginActivity.this,MainActivity.class);  
+			}else{
+				i = new Intent(LoginActivity.this,WaiterHome.class);  
+			}
+			startActivity(i);
+			finish();
+		}
+		
 		setContentView(R.layout.login);
 		b = (Button)findViewById(R.id.loginButton);
 		rb1 = (RadioButton)findViewById(R.id.radioUser);
@@ -91,13 +109,19 @@ public class LoginActivity extends Activity{
     			@Override
     			public void onClick(View v) {
     				// TODO Auto-generated method stub
+    				final SharedPreferences prefs = getGcmPreferences(context);
+    				SharedPreferences.Editor editor = prefs.edit();
+    		        
     				if(rb1.isChecked()){
-    					i = new Intent(LoginActivity.this,MainActivity.class);
-    					SCRIPT_URL = "http://"+server+"/order/login.php?type=user&email=omkarsayajihande@gmail.com&pass=welcome123&gcm_id="+regid;
+    					i = new Intent(LoginActivity.this,MainActivity.class);    
+    					SCRIPT_URL = "http://"+server+"/order/login.php?type=user&email="+email.getText()+"&pass="+pass.getText()+"&gcm_id="+regid;
+    					profile = "user";
     				}else{
-    					i = new Intent(LoginActivity.this,WaiterHome.class);
-    					SCRIPT_URL = "http://"+server+"/order/login.php?type=waiter&email=food.delivery.bits@gmail.com&pass=123&gcm_id="+regid;
+    					i = new Intent(LoginActivity.this,WaiterHome.class); 
+    					SCRIPT_URL = "http://"+server+"/order/login.php?type=waiter&email="+email.getText()+"&pass="+pass.getText()+"&gcm_id="+regid;
+    					profile = "waiter";
     				}
+    				editor.commit();
     				Log.d("URL", SCRIPT_URL);
     				GetUserDetails task= new GetUserDetails();
     				task.execute();
@@ -132,8 +156,8 @@ private class GetUserDetails extends AsyncTask<String,Void,Boolean>{
 //				Toast.makeText(LoginActivity.this, "Hello", Toast.LENGTH_SHORT).show();
 				HttpClient client = new DefaultHttpClient();  
 				String folder = getString(R.string.server_global);
-				String URL = "http://"+server+"login.php?type=user&email=omkarsayajihande@gmail.com&pass=welcome123";
-				Log.d("faculty list","login folder="+URL);
+//				String URL = "http://"+server+"login.php?type=user&email="+email.getText()+"&pass="+pass.getText();
+//				Log.d("faculty list","login folder="+URL);
 				
 				HttpGet get = new HttpGet(SCRIPT_URL);
 				
@@ -192,8 +216,11 @@ private class GetUserDetails extends AsyncTask<String,Void,Boolean>{
 			    editor.putString("name",tmp_fname);
 			    editor.putString("id",tmp_id);
 			    editor.putString("pair_id", tmp_pair_id);
+			    editor.putString("auth", "1");
+			    editor.putString("profile", profile);
 			    editor.commit();
 			    startActivity(i);
+			    finish();
 			}else{
 				Toast.makeText(LoginActivity.this, "Authentication Failure", Toast.LENGTH_LONG).show();
 			}

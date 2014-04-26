@@ -46,7 +46,7 @@ public class UpdateList extends Fragment {
 		server = getString(R.string.server_global);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 		waiter_id = prefs.getString("waiter_id", "");
-		Toast.makeText(getActivity(), "Waiter ID: "+waiter_id, Toast.LENGTH_LONG).show();
+//		Toast.makeText(getActivity(), "Waiter ID: "+waiter_id, Toast.LENGTH_LONG).show();
 		View rootView = inflater.inflate(R.layout.update_list, container, false);
 		lv = (ListView)rootView.findViewById(R.id.updateList);
 		GetUpdates task = new GetUpdates();

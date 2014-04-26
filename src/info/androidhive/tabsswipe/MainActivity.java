@@ -53,7 +53,9 @@ public class MainActivity extends FragmentActivity implements
 		    SharedPreferences.Editor editor = prefs.edit();
 		    editor.clear();
 		    editor.commit();
-		    Intent i = new Intent(MainActivity.this,LoginActivity.class);
+		    Intent i = new Intent(getBaseContext(),LoginActivity.class);
+		    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		    finish();
 		    startActivity(i);
 			return true;
 		}else{
