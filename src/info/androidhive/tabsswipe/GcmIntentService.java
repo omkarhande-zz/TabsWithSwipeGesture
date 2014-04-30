@@ -103,7 +103,7 @@ public class GcmIntentService extends IntentService {
         .setSmallIcon(R.drawable.ic_stat_gcm)
         .setContentTitle(msg.getString("contentTitle"))
         .setStyle(new NotificationCompat.BigTextStyle()
-        .bigText(msg.getString("tickerText")))
+        .bigText(msg.getString("contentText")))
         .setContentText(msg.getString("contentText"));
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         mBuilder.setSound(alarmSound);
